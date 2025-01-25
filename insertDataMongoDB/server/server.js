@@ -14,6 +14,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
+mongoose.connect(process.env.MONGODB_URI);
+
+
+app.get('/getUser', (req, res) => {
+    User.find()
+    .then(users => res.json(users))
+    .catch(error => res.json(error));
+    // console.log('mongoose.connection.db.databaseName', mongoose.connection.db.databaseName);
+});
 app.get('/', (req, res) => {
     res.send('App working');
     // console.log('mongoose.connection.db.databaseName', mongoose.connection.db.databaseName);
@@ -22,7 +31,7 @@ app.get('/', (req, res) => {
 app.post('/register', async (req, res) => {
     console.log('Received data:', req.body); 
     try {
-        const user = new User({ name: req.body.name });
+        const user = new User({ name: req.body.name, email:req.body.email });
         let result = await user.save();
         res.json(result);
     }

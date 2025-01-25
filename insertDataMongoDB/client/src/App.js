@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
 import { useState } from "react";
+import axios from 'axios';
 
 export default function App() {
   const [input, setInput] = useState("");
+  const [email, setEmail] = useState("");
+  const [data, setData] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -11,7 +14,7 @@ export default function App() {
       // ここのはバックエンドのURL入れる
       let result = await fetch('http://localhost:3030/register', {
         method: 'post',
-        body: JSON.stringify({ name: input }),  // inputをnameとして送信
+        body: JSON.stringify({ name: input, email: email }),  // inputをnameとして送信
         headers: {
           'Content-Type': 'application/json'
         }
@@ -24,6 +27,7 @@ export default function App() {
       console.log('result', result);
       if (result.ok) {
         setInput("");
+        setEmail("");
       }
     }
     catch (error) {
@@ -34,13 +38,49 @@ export default function App() {
   function handleInput(e) {
     setInput(e.target.value);
   }
+  function handleEmail(e) {
+    setEmail(e.target.value);
+  }
+
+  const fetchData = () => {
+    axios.get('http://localhost:3030/getUser')
+      .then((user) => {
+        console.log('user', user);
+        setData(user.data);
+      })
+      .catch(error => console.log(error));
+  }
+
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={input} onChange={handleInput} />
-        <button >Submit</button>
-      </form>
+      <div className='formContainer'>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="inputName">Name</label>
+          <input id="inputName" type="text" value={input} onChange={handleInput} />
+          <label htmlFor="inputEmail">Email</label>
+          <input id="inputEmail" type="email" value={email} onChange={handleEmail} />
+          <button >Submit</button>
+        </form>
+      </div>
+
+      <div className="buttons">
+        <button onClick={() => fetchData()}>Show Name and Email Address</button>
+        {
+          data ?
+            <ul>
+              {data.map((user) => (
+                <li key={user.id}>
+                  {user.name}, {user.email}
+                </li>
+              ))}
+            </ul>
+            :
+            <p>
+              No data.
+            </p>
+        }
+      </div>
     </>
   )
 }
