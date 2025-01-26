@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
 import { useState } from "react";
+import List from './components/List';
+import Upload from './components/Upload';
 import axios from 'axios';
 
 export default function App() {
   const [input, setInput] = useState("");
   const [email, setEmail] = useState("");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState("");
+  const [csvData, setCsvData] = useState([]);
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,10 +23,6 @@ export default function App() {
           'Content-Type': 'application/json'
         }
       })
-
-      // if (!result.ok) {
-      //   throw new Error("response not ok");
-      // }
       result = await result.json();
       console.log('result', result);
       if (result.ok) {
@@ -45,7 +45,7 @@ export default function App() {
   const fetchData = () => {
     axios.get('http://localhost:3030/getUser')
       .then((user) => {
-        console.log('user', user);
+        // console.log('user', user);
         setData(user.data);
       })
       .catch(error => console.log(error));
@@ -67,20 +67,18 @@ export default function App() {
       <div className="buttons">
         <button onClick={() => fetchData()}>Show Name and Email Address</button>
         {
-          data ?
-            <ul>
-              {data.map((user) => (
-                <li key={user.id}>
-                  {user.name}, {user.email}
-                </li>
-              ))}
-            </ul>
-            :
-            <p>
-              No data.
-            </p>
+          data 
+            ?
+            <List data={data} />
+            : data ? 
+            <p>No data.</p>
+            : ""
         }
+
+        <Upload csvData = {csvData} setCsvData = {setCsvData} />
+
       </div>
     </>
   )
 }
+
