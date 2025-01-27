@@ -55,7 +55,7 @@ export default function App() {
   return (
     <>
       <div className='formContainer'>
-        <form onSubmit={handleSubmit}>
+        <form className = 'manualForm' onSubmit={handleSubmit}>
           <label htmlFor="inputName">Name</label>
           <input id="inputName" type="text" value={input} onChange={handleInput} />
           <label htmlFor="inputEmail">Email</label>
@@ -70,9 +70,8 @@ export default function App() {
           data 
             ?
             <List data={data} />
-            : data ? 
-            <p>No data.</p>
-            : ""
+            : 
+            ""
         }
 
         <Upload csvData = {csvData} setCsvData = {setCsvData} />
