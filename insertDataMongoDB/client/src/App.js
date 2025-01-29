@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { useState } from "react";
 import List from './components/List';
+// import Chart from './components/Chart';
 import Upload from './components/Upload';
 import axios from 'axios';
 
@@ -9,6 +10,7 @@ export default function App() {
   const [input, setInput] = useState("");
   const [email, setEmail] = useState("");
   const [data, setData] = useState("");
+  const [dogData, setDogData] = useState("");
   const [csvData, setCsvData] = useState([]);
 
 
@@ -51,11 +53,24 @@ export default function App() {
       .catch(error => console.log(error));
   }
 
+  const showChart = () => {
+    axios.get('http://localhost:3030/getDogs')
+      .then((dog) => {
+        console.log('user', dog);
+        setDogData(dog.data);
+        
+      })
+      .then((data) => {
+        console.log(dogData);
+      })
+      .catch(error => console.log(error));
+  }
+
 
   return (
     <>
       <div className='formContainer'>
-        <form className = 'manualForm' onSubmit={handleSubmit}>
+        <form className='manualForm' onSubmit={handleSubmit}>
           <label htmlFor="inputName">Name</label>
           <input id="inputName" type="text" value={input} onChange={handleInput} />
           <label htmlFor="inputEmail">Email</label>
@@ -67,14 +82,16 @@ export default function App() {
       <div className="buttons">
         <button onClick={() => fetchData()}>Show Name and Email Address</button>
         {
-          data 
+          data
             ?
             <List data={data} />
-            : 
+            :
             ""
         }
 
-        <Upload csvData = {csvData} setCsvData = {setCsvData} />
+        <Upload csvData={csvData} setCsvData={setCsvData} />
+
+        <button onClick={() => showChart()}>Show Chart</button>
 
       </div>
     </>

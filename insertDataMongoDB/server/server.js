@@ -168,6 +168,16 @@ app.post('/register', async (req, res) => {
     }
 })
 
+app.get('/getDogs', async (req, res) => {
+    try{
+        const data = await Dog.find({ name : "Teddy" }); 
+        console.log('data', data);
+    }catch(error){
+        console.log(error);
+    }
+})
+
+
 app.use((req, res) => {
     res.type('text/plain');
     res.status(404);
