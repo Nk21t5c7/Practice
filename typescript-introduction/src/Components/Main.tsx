@@ -9,6 +9,7 @@ const Main: React.FC<MainProps> = ({ subtitle }) => {
   const skillList = [
     {
       name: "HTML",
+
     },
     {
       name: "CSS",
@@ -28,13 +29,19 @@ const Main: React.FC<MainProps> = ({ subtitle }) => {
     {
       name: "TypeScript",
     },
+    {
+      name: "R",
+    },
+    {
+      name: "Matlab",
+    },
   ];
 
-  const imgUrl = '../public/img/img1.jpg';
+  const imgUrl = '/img/img1.jpg';
   return (
     <main>
       <h2>{subtitle}</h2>
-      <Card skillList={skillList} imgUrl = {imgUrl} />
+      <Card skillList ={skillList} imgUrl = {imgUrl} alt = {subtitle} />
     </main>
   );
 };

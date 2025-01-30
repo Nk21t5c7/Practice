@@ -6,7 +6,7 @@ import './App.css';
 
 const App: React.FC = () => {
   return (
-    <div>
+    <div className='container'>
       <Header title = "My Profile" />
       <Main subtitle = "Nodoka" />
       <Footer copyright = "©︎2025 Nodoka Hanaki"/>
