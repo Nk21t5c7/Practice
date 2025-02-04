@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {
+  faSnowflake,
+  faSun,
+  faWindowClose,
+} from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudRain, faWind } from "@fortawesome/free-solid-svg-icons";
 
 interface WeatherData {
   place: {
@@ -85,26 +92,49 @@ const Content: React.FC = () => {
   return (
     <>
       {weather ? (
-        <div className="weatherContainer">
-            <div className="place">
-                <h3>{weather.place.city} <span>{weather.place.country}</span> </h3>
+        <div className="weatherContainer ">
+          <div className="place">
+            <h2 className="text-3xl">
+              Current Weather in
+              <span>&nbsp;</span>
+              <span className="text-4xl">
+                {weather.place.city}, {weather.place.country}{" "}
+              </span>
+            </h2>
+          </div>
 
+          <div className="skyContainer text-5xl py-4">
+            <p>
+              Weather :
+              <span>
+                <span>&nbsp;</span>
+                {weather.weather.sky}
+                <span>&nbsp;</span>
+                {weather.weather.sky === "Snow" ? (
+                  <FontAwesomeIcon icon={faSnowflake} />
+                ) : weather.weather.sky === "Rain" ? (
+                  <FontAwesomeIcon icon={faCloudRain} />
+                ) : weather.weather.sky === "Sunny" ? (
+                  <FontAwesomeIcon icon={faSun} />
+                ) : weather.weather.sky === "Windy" ? (
+                  <FontAwesomeIcon icon={faWind} />
+                ) : (
+                  ""
+                )}
+              </span>
+            </p>
+          </div>
 
-            </div>
-          <div className="temp-container">
-            <p>Temperature: {Math.round(weather.temperature.temp - 273.15)}℃</p>
+          <div className="temp-container border-2 w-fit p-5 rounded-2xl my-3 text-2xl">
             <p>
-              Temperature - Feels Like:{" "}
-              {Math.round(weather.temperature.feels_like - 273.15)}℃
+              Current Temperature:{" "}
+              {Math.round(weather.temperature.temp - 273.15)}℃
             </p>
             <p>
-              Temperature - Min:{" "}
-              {Math.round(weather.temperature.temp_min - 273.15)}℃
+              Feels Like: {Math.round(weather.temperature.feels_like - 273.15)}℃
             </p>
-            <p>
-              Temperature - Max:{" "}
-              {Math.round(weather.temperature.temp_max - 273.15)}℃
-            </p>
+            <p>Min: {Math.round(weather.temperature.temp_min - 273.15)}℃</p>
+            <p>Max: {Math.round(weather.temperature.temp_max - 273.15)}℃</p>
           </div>
         </div>
       ) : (

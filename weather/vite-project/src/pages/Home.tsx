@@ -1,11 +1,10 @@
-import React from 'react';
+// import React from 'react';
 import Content from '../Components/Content';
 
  
 const Home = () => {
     return (
-        <main>
-            <h2>Current Weather</h2>
+        <main className='p-6'>
             <Content />
 
         </main>

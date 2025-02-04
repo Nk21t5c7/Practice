@@ -1,4 +1,3 @@
-import React from "react";
 import Home from "./pages/Home";
 import Search from "./pages/SearchPage";
 import Header from "./Components/Header";
