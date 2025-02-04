@@ -10,7 +10,7 @@ const Header = () => {
             <nav >
                 <ul className='flex gap-8 items-center'>
                     <li className="hover:text-blue-600" ><Link to = '/' >Home</Link></li>
-                    <li className="hover:text-blue-600" ><Link to = '/search' >Search</Link></li>
+                    <li className="hover:text-blue-600" ><Link to = '/place' >City</Link></li>
                 </ul>
             </nav>
         </header>

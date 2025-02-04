@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const locations = require('./locations.json');
 dotenv_1.default.config();
 const port = process.env.PORT || 3098;
 const app = (0, express_1.default)();
@@ -23,7 +24,7 @@ app.use(express_1.default.json());
 const apiKey = process.env.WEATHER_API_KEY;
 const url = `https://api.openweathermap.org/data/2.5/weather?`;
 app.set("port", port);
-app.get('/search', (req, res) => {
+app.get('/cityWeather', (req, res) => {
     res.send("Hello World");
 });
 app.post('/current-weather', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -38,6 +39,32 @@ app.post('/current-weather', (req, res) => __awaiter(void 0, void 0, void 0, fun
     else {
         console.log('error');
     }
+}));
+app.post('/place/:name', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    const { name } = req.params;
+    // console.log((locations));
+    // const locationObj = JSON.parse(locations);
+    // console.log(locationObj)
+    const cityLocation = Object.keys(locations).find((cityName) => cityName === name);
+    // console.log(locations[cityLocation], cityLocation);
+    if (!cityLocation)
+        res.json({ error: "City not found" });
+    console.log(name, cityLocation);
+    yield fetch(url + `lat=${(_a = locations[cityLocation]) === null || _a === void 0 ? void 0 : _a.lat}&lon=${(_b = locations[cityLocation]) === null || _b === void 0 ? void 0 : _b.lon}&appid=${apiKey}`)
+        .then((result) => {
+        console.log(result);
+        if (!result.ok)
+            res.send('Error');
+        return result.json();
+    })
+        .then((data) => {
+        console.log(data.name);
+        res.json(data);
+    })
+        .catch((err) => {
+        res.send(err);
+    });
 }));
 app.get('/', (req, res) => {
     res.type('text');

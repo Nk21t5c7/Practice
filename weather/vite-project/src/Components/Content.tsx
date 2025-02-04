@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   faSnowflake,
   faSun,
-  faWindowClose,
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudRain, faWind } from "@fortawesome/free-solid-svg-icons";
@@ -56,6 +55,7 @@ const Content: React.FC = () => {
           .then(async (res) => {
             if (res.status === 200) {
               const data = await res.json();
+              console.log(data);
               return data;
             } else {
               throw new Error("error");
@@ -94,42 +94,35 @@ const Content: React.FC = () => {
       {weather ? (
         <div className="weatherContainer ">
           <div className="place">
-            <h2 className="text-3xl">
+            <h2 className="text-2xl">
               Current Weather in
               <span>&nbsp;</span>
-              <span className="text-4xl">
+              <span className="text-2xl text-cyan-700">
                 {weather.place.city}, {weather.place.country}{" "}
               </span>
             </h2>
           </div>
 
-          <div className="skyContainer text-5xl py-4">
+          <div className="skyContainer text-4xl py-4">
             <p>
-              Weather :
-              <span>
-                <span>&nbsp;</span>
-                {weather.weather.sky}
-                <span>&nbsp;</span>
-                {weather.weather.sky === "Snow" ? (
-                  <FontAwesomeIcon icon={faSnowflake} />
-                ) : weather.weather.sky === "Rain" ? (
-                  <FontAwesomeIcon icon={faCloudRain} />
-                ) : weather.weather.sky === "Sunny" ? (
-                  <FontAwesomeIcon icon={faSun} />
-                ) : weather.weather.sky === "Windy" ? (
-                  <FontAwesomeIcon icon={faWind} />
-                ) : (
-                  ""
-                )}
-              </span>
+              {weather.weather.sky}
+              <span>&nbsp;</span>
+              {weather.weather.sky === "Snow" ? (
+                <FontAwesomeIcon icon={faSnowflake} />
+              ) : weather.weather.sky === "Rain" ? (
+                <FontAwesomeIcon icon={faCloudRain} />
+              ) : weather.weather.sky === "Sunny" ? (
+                <FontAwesomeIcon icon={faSun} />
+              ) : weather.weather.sky === "Windy" ? (
+                <FontAwesomeIcon icon={faWind} />
+              ) : (
+                ""
+              )}
             </p>
           </div>
 
-          <div className="temp-container border-2 w-fit p-5 rounded-2xl my-3 text-2xl">
-            <p>
-              Current Temperature:{" "}
-              {Math.round(weather.temperature.temp - 273.15)}℃
-            </p>
+          <div className="temp-container border-2 w-fit p-5 rounded-2xl my-3">
+            <p>Temperature: {Math.round(weather.temperature.temp - 273.15)}℃</p>
             <p>
               Feels Like: {Math.round(weather.temperature.feels_like - 273.15)}℃
             </p>
