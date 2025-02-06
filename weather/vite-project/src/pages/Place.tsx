@@ -1,48 +1,77 @@
 import React, { useEffect, useState } from "react";
-import CityWeather from '../Components/CityWeather'
+import CityWeather from "../Components/CityWeather";
+
+export interface WeatherData {
+  place: {
+    city: string;
+    country: string;
+  };
+  temperature: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+  };
+  weather: {
+    sky: string;
+  };
+}
 
 const Place = () => {
-  const [city, setCity] = useState<string>("");
-  const [data, setData] = useState<object>({});
+  const [city, setCity] = useState<string>("london");
+  const [data, setData] = useState<WeatherData | null>(null);
 
   useEffect(() => {
-    if(city) fetchContent(city);
-  }, [city])
+    if (city) fetchContent(city);
+  }, [city]);
 
-   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setCity(e.currentTarget.value);
   }
 
-  function fetchContent(cityName:string): Promise<string>{
-    console.log('cityName', cityName);
-    return new Promise ((res, rej) =>{
-        fetch(`http://localhost:3098/place/${cityName}`, {
-            method : "POST",
-            headers:{
-                "Content-Type": "application/json",
-            },
-            body:JSON.stringify({ city: cityName}),
-        })
+  function fetchContent(cityName: string): Promise<void> {
+    console.log("cityName", cityName);
+    return new Promise((res, rej) => {
+      fetch(`http://localhost:3098/place/${cityName}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ city: cityName }),
+      })
         .then((result) => {
-            console.log(result);
-            return result.json()
+          console.log(result);
+          return result.json();
         })
-        .then((data)=>{
-            console.log('data', data);
-            setData(data);
-            res(data);
+        .then((data) => {
+            console.log(typeof(data));
+          setData({
+            place: {
+              city: data.name,
+              country: data.sys.country,
+            },
+            temperature: {
+              temp: data.main.temp,
+              feels_like: data.main.feels_like,
+              temp_min: data.main.temp_min,
+              temp_max: data.main.temp_max,
+            },
+            weather: {
+              sky: data.weather[0].main,
+            },
+          });
+          res();
         })
-        
+
         .catch((err) => {
-            rej(err);
+          rej(err);
         });
-        
-    })
+    });
   }
 
   return (
-    <main className="px-6 py-3 flex">
-      <div className="buttonContainer flex flex-col items-start flex-wrap">
+    <main className="px-6 py-3">
+      <div className="buttonContainer ">
         <button
           className="bg-cyan-100  m-2 rounded-3xl p-4 hover:bg-cyan-500 hover:text-white hover:border-none "
           value="london"
@@ -123,8 +152,7 @@ const Place = () => {
       </div>
 
       <div className="city-weather-info">
-        <CityWeather data = {}/>
-
+        <CityWeather data={data} city={city} />
       </div>
     </main>
   );

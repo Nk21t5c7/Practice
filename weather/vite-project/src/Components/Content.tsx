@@ -4,7 +4,8 @@ import {
   faSun,
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudRain, faWind } from "@fortawesome/free-solid-svg-icons";
+import { faCloud, faCloudRain, faWind } from "@fortawesome/free-solid-svg-icons";
+import Image from "./Image";
 
 interface WeatherData {
   place: {
@@ -24,6 +25,7 @@ interface WeatherData {
 
 const Content: React.FC = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [coordinates, setCoordinates] = useState<object | null>(null); 
 
   useEffect(() => {
     const weatherdata = async () => {
@@ -39,6 +41,10 @@ const Content: React.FC = () => {
           .then((data) => {
             console.log("data.coords", data.coords);
             return data.coords;
+          })
+          .then((coords)=> {
+            setCoordinates(coords);
+            return coords;
           })
           .then((data) => {
             return fetch("http://localhost:3098/current-weather", {
@@ -111,9 +117,11 @@ const Content: React.FC = () => {
                 <FontAwesomeIcon icon={faSnowflake} />
               ) : weather.weather.sky === "Rain" ? (
                 <FontAwesomeIcon icon={faCloudRain} />
-              ) : weather.weather.sky === "Sunny" ? (
+              ) : weather.weather.sky === "Clear" ? (
                 <FontAwesomeIcon icon={faSun} />
-              ) : weather.weather.sky === "Windy" ? (
+              ) :weather.weather.sky === "Clouds" ? (
+                <FontAwesomeIcon icon={faCloud} />
+              ): weather.weather.sky === "Windy" ? (
                 <FontAwesomeIcon icon={faWind} />
               ) : (
                 ""
@@ -133,6 +141,8 @@ const Content: React.FC = () => {
       ) : (
         <p>LOADING</p>
       )}
+
+      <Image data = {coordinates}/>
     </>
   );
 };
