@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('./db');
 const User = require('./models/User');
-const Blast = require('./models/Blast');
 const Dog = require('./models/Dog');
 const cors = require('cors');
 
@@ -124,36 +123,7 @@ app.post('/register-dog', async (req, res) => {
 
     }
 })
-app.post('/register-blast', async (req, res) => {
-    try {
-        const blastData = req.body;
-        const results = [];
 
-        Object.values(blastData.csvData).forEach(async (item) => {
-            console.log('name', item['Player Name'], 'name');
-
-            if (!item['Player Name']) return;
-
-            const data = new Blast({
-                name: item['Player Name'], equipment: item.Equipment, handedness: item.Handedness, swingDetails: item['Swing Details'],
-                planeScore: parseFloat(item['Plane Score']), connectionScore: item['Connection Score'], rotationScore: item['Rotation Score'], batSpeed: item['Bat Speed (mph)'],
-                rotationalAcceleration: item['Rotational Acceleration (g)'], onPlaneEfficiency: item['On Plane Efficiency (%)'],
-                attackAngle: item['Attack Angle (deg)'], earlyConnection: item['Early Connection (deg)'], connectionAtImpact: item['Connection at Impact (deg)'],
-                verticalBatAngle: item['Vertical Bat Angle (deg)'], power: item['Power (kW)'], timeToContact: item['Time to Contact (sec)'], date: item.Date
-            });
-            console.log('data', data);
-            let result = await data.save();
-            // res.json(), res,send()がループで毎回呼ばれるとエラーになる
-            results.push(result);
-        })
-        res.json(results);
-
-    }
-    catch (error) {
-        res.status(500).send(error);
-
-    }
-})
 
 app.post('/register', async (req, res) => {
     console.log('Received data:', req.body);
