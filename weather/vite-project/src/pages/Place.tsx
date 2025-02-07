@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 import CityWeather from "../Components/CityWeather";
+import Description from "../Components/Description";
+
+interface Citydata{
+  name: string;
+  country: string;
+  description: string;
+}
 
 export interface WeatherData {
   place: {
@@ -20,14 +27,52 @@ export interface WeatherData {
 const Place = () => {
   const [city, setCity] = useState<string>("london");
   const [data, setData] = useState<WeatherData | null>(null);
+  const [cityData, setCityData] = useState<Citydata | null>(null);
 
   useEffect(() => {
-    if (city) fetchContent(city);
+    if (city) {
+      fetchContent(city);
+      getCityDescription(city);
+  
+    };
+
   }, [city]);
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setCity(e.currentTarget.value);
   }
+
+  function getCityDescription(cityName: string): Promise<void> {
+    console.log("cityName", cityName);
+    return new Promise((res, rej) => {
+      fetch(`http://localhost:3098/place/description/${cityName}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ city: cityName }),
+      })
+        .then((result) => {
+          console.log(result);
+          return result.json();
+        })
+        .then((data) => {
+          console.log((data));
+          setCityData({
+            name: data.name,
+            country: data.country,
+            description: data.description
+          })
+       
+        res();
+      })
+        .catch((error) => {
+          rej(error);
+        });
+    });
+  }
+
+      
 
   function fetchContent(cityName: string): Promise<void> {
     console.log("cityName", cityName);
@@ -153,6 +198,7 @@ const Place = () => {
 
       <div className="city-weather-info">
         <CityWeather data={data} city={city} />
+        <Description city = {cityData} />
       </div>
     </main>
   );

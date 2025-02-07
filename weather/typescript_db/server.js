@@ -15,57 +15,79 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const locations = require('./locations.json');
+const axios = require('axios');
 dotenv_1.default.config();
 const port = process.env.PORT || 3098;
 const app = (0, express_1.default)();
+const mongoUri = process.env.MONGODB;
+mongoose_1.default.connect(mongoUri);
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 const apiKey = process.env.WEATHER_API_KEY;
+const nasaApi = process.env.NASA_API_KEY;
 const url = `https://api.openweathermap.org/data/2.5/weather?`;
 app.set("port", port);
-app.get('/cityWeather', (req, res) => {
-    res.send("Hello World");
-});
 app.post('/current-weather', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // const {lat,lon} = req.body;
-    // console.log(req);
     const result = yield fetch(url + `lat=${req.body.lat}&lon=${req.body.long}&appid=${apiKey}`);
     if (result.status === 200) {
         const data = yield result.json();
-        console.log(data);
+        // console.log(data);
         res.json(data);
     }
     else {
         console.log('error');
     }
 }));
+app.post('/place/description/:name', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name } = req.params;
+    const cityName = Object.keys(locations).find((cityName) => cityName === name);
+    if (!cityName)
+        res.json({ error: "City not found" });
+    console.log('name', name, cityName);
+    if (cityName) {
+        try {
+            const cityCollection = mongoose_1.default.connection.collection('weather-countries');
+            console.log(cityCollection);
+            // console.log(cityName);
+            const city = yield cityCollection.find({ name: cityName.toLowerCase() }).toArray();
+            console.log('city', city);
+            res.locals.city = city;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+}));
 app.post('/place/:name', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     const { name } = req.params;
-    // console.log((locations));
-    // const locationObj = JSON.parse(locations);
-    // console.log(locationObj)
     const cityLocation = Object.keys(locations).find((cityName) => cityName === name);
     // console.log(locations[cityLocation], cityLocation);
     if (!cityLocation)
         res.json({ error: "City not found" });
-    console.log(name, cityLocation);
-    yield fetch(url + `lat=${(_a = locations[cityLocation]) === null || _a === void 0 ? void 0 : _a.lat}&lon=${(_b = locations[cityLocation]) === null || _b === void 0 ? void 0 : _b.lon}&appid=${apiKey}`)
-        .then((result) => {
-        console.log(result);
-        if (!result.ok)
-            res.send('Error');
-        return result.json();
-    })
-        .then((data) => {
-        console.log(data.name);
-        res.json(data);
-    })
-        .catch((err) => {
-        res.send(err);
-    });
+    // console.log(name, cityLocation);
+    if (cityLocation) {
+        yield fetch(url + `lat=${(_a = locations[cityLocation]) === null || _a === void 0 ? void 0 : _a.lat}&lon=${(_b = locations[cityLocation]) === null || _b === void 0 ? void 0 : _b.lon}&appid=${apiKey}`)
+            .then((result) => {
+            // console.log(result);
+            if (!result.ok)
+                res.send('Error');
+            return result.json();
+        })
+            .then((data) => {
+            // console.log(data.name);
+            res.json(data);
+        })
+            .catch((err) => {
+            res.send(err);
+        });
+    }
 }));
+app.get('/cityWeather', (req, res) => {
+    res.send("Hello World");
+});
 app.get('/', (req, res) => {
     res.type('text');
     res.send("Hello World");

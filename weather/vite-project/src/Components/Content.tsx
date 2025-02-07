@@ -5,7 +5,6 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloud, faCloudRain, faWind } from "@fortawesome/free-solid-svg-icons";
-import Image from "./Image";
 
 interface WeatherData {
   place: {
@@ -25,7 +24,7 @@ interface WeatherData {
 
 const Content: React.FC = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [coordinates, setCoordinates] = useState<object | null>(null); 
+  // const [coordinates, setCoordinates] = useState<object | null>(null); 
 
   useEffect(() => {
     const weatherdata = async () => {
@@ -43,7 +42,7 @@ const Content: React.FC = () => {
             return data.coords;
           })
           .then((coords)=> {
-            setCoordinates(coords);
+            // setCoordinates(coords);
             return coords;
           })
           .then((data) => {
@@ -142,7 +141,6 @@ const Content: React.FC = () => {
         <p>LOADING</p>
       )}
 
-      <Image data = {coordinates}/>
     </>
   );
 };
