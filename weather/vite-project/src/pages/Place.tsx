@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CityWeather from "../Components/CityWeather";
 import Description from "../Components/Description";
+import axios from "axios";
 
-interface Citydata{
+interface Citydata {
   name: string;
   country: string;
   description: string;
@@ -33,46 +34,48 @@ const Place = () => {
     if (city) {
       fetchContent(city);
       getCityDescription(city);
-  
-    };
-
+    }
   }, [city]);
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     setCity(e.currentTarget.value);
   }
 
-  function getCityDescription(cityName: string): Promise<void> {
-    console.log("cityName", cityName);
-    return new Promise((res, rej) => {
-      fetch(`http://localhost:3098/place/description/${cityName}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ city: cityName }),
-      })
-        .then((result) => {
-          console.log(result);
-          return result.json();
-        })
-        .then((data) => {
-          console.log((data));
-          setCityData({
-            name: data.name,
-            country: data.country,
-            description: data.description
-          })
-       
-        res();
-      })
-        .catch((error) => {
-          rej(error);
+  function getCityDescription(cityName: string){
+    axios.get(`http://localhost:3098/place/description/${cityName}`)
+      .then((data) => {
+        console.log('data.data', data.data.name, data.data.country);
+        setCityData({
+          name: data.data.name,
+          country: data.data.country,
+          description: data.data.description,
         });
-    });
-  }
+      }).catch((error) =>{
+        console.log(error);
+      })
+    // console.log("cityName", cityName);
+    // return new Promise((res, rej) => {
+    //   fetch(`http://localhost:3098/place/description/${cityName}`)
+    //     .then((result) => {
+    //       console.log(result);
+    //       return result.json();
+    //     })
+    //     .then((data) => {
+    //       console.log((data));
+    //       setCityData({
+    //         name: data.name,
+    //         country: data.country,
+    //         description: data.description
+    //       })
 
-      
+    //     res();
+    //   })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       rej();
+    //     });
+    // });
+  }
 
   function fetchContent(cityName: string): Promise<void> {
     console.log("cityName", cityName);
@@ -89,7 +92,7 @@ const Place = () => {
           return result.json();
         })
         .then((data) => {
-            console.log(typeof(data));
+          console.log(typeof data);
           setData({
             place: {
               city: data.name,
@@ -198,7 +201,7 @@ const Place = () => {
 
       <div className="city-weather-info">
         <CityWeather data={data} city={city} />
-        <Description city = {cityData} />
+        {cityData ? <Description city={cityData} /> : ""}
       </div>
     </main>
   );
