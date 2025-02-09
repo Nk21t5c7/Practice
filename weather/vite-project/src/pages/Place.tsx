@@ -118,7 +118,7 @@ const Place = () => {
   }
 
   return (
-    <main className="px-6 py-3">
+    <main className="px-6 py-3 min-h-[80vh] max-w-[1200px] m-auto">
       <div className="buttonContainer ">
         <button
           className="bg-cyan-100  m-2 rounded-3xl p-4 hover:bg-cyan-500 hover:text-white hover:border-none "
