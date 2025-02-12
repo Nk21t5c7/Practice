@@ -1,9 +1,23 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { styled } from "@mui/material/styles";
+import Textarea from "@mui/joy/Textarea";
 import { FormControl, InputLabel, Input, Box } from "@mui/material";
 
 import Button from "@mui/material/Button";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 interface formData {
   city: string;
@@ -37,9 +51,10 @@ const Form = () => {
 
   function sendData() {
     axios
-      .post("https://localhost:3098/insert-data", { data })
+      .post("http://localhost:3098/insert-data", { data })
       .then((result) => {
-        return result.data;
+        console.log(result);
+        return;
       })
       .catch((err) => {
         console.log(err);
@@ -52,7 +67,7 @@ const Form = () => {
       <Box
         component="form"
         onSubmit={handleSubmit}
-        className="grid grid-cols-[auto_90%] gap-4"
+        className="grid grid-cols-[auto_auto] gap-4"
       >
         <FormControl>
           <InputLabel
@@ -93,7 +108,9 @@ const Form = () => {
           </InputLabel>
           <Input
             id="latitude"
-            onChange={(e) => setData({ ...data, latitude: Number(e.target.value) })}
+            onChange={(e) =>
+              setData({ ...data, latitude: Number(e.target.value) })
+            }
             name="latitude"
             value={data.latitude}
             className="col-start-2 col-end-3"
@@ -108,10 +125,21 @@ const Form = () => {
           </InputLabel>
           <Input
             id="longitude"
-            onChange={(e) => setData({ ...data, longitude: Number(e.target.value) })}
+            onChange={(e) =>
+              setData({ ...data, longitude: Number(e.target.value) })
+            }
             name="longitude"
             value={data.longitude}
             className="col-start-2 col-end-3"
+          />
+        </FormControl>
+        <FormControl className="col-start-1 col-end-3">
+          <Textarea
+            onChange={(e) => {
+              setData({ ...data, description: e.target.value });
+            }}
+            value={data.description}
+            className="h-[20vh]"
           />
         </FormControl>
 
@@ -120,18 +148,18 @@ const Form = () => {
           role={undefined}
           variant="outlined"
           tabIndex={-1}
-          className="col-start-1 col-end-3 py-4"
+          className="col-start-1 col-end-3 py-4 relative"
+
           //   startIcon={<CloudUploadIcon />}
         >
-          <Input
+          Upload files
+          <VisuallyHiddenInput
             id="url"
             onChange={(e) => setData({ ...data, url: e.target.value })}
             name="url"
             value={data.url}
             type="file"
-            className="opacity-0 appearance-none absolute"
           />
-          Upload files
         </Button>
 
         <Button

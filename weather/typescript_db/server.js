@@ -16,6 +16,8 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const Countries_1 = __importDefault(require("./models/Countries"));
+const cloudinary_1 = require("cloudinary");
 const locations = require("./locations.json");
 const axios = require("axios");
 dotenv_1.default.config();
@@ -23,6 +25,11 @@ const port = process.env.PORT || 3098;
 const app = (0, express_1.default)();
 const mongoUri = process.env.MONGODB;
 mongoose_1.default.connect(mongoUri);
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API,
+    api_secret: process.env.CLOUDINARY_URL, // Click 'View API Keys' above to copy your API secret
+});
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 const apiKey = process.env.WEATHER_API_KEY;
@@ -38,6 +45,25 @@ app.post("/current-weather", (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
     else {
         console.log("error");
+    }
+}));
+app.post("/insert-data", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    try {
+        const data = req.body.data;
+        const country = new Countries_1.default({
+            name: data["city"],
+            country: data["country"],
+            latitude: data["latitude"],
+            longitude: data["longitude"],
+            description: data["description"],
+        });
+        const result = yield country.save();
+        res.status(200).json(result);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(502).json("ERROR");
     }
 }));
 app.get("/place/description/:name", (req, res) => __awaiter(void 0, void 0, void 0, function* () {

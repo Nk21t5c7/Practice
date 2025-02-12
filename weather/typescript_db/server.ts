@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import Country from "./models/Countries";
+import { v2 as cloudinary } from "cloudinary";
 
 const locations = require("./locations.json");
 const axios = require("axios");
@@ -13,6 +14,12 @@ const app: express.Express = express();
 
 const mongoUri = process.env.MONGODB as string;
 mongoose.connect(mongoUri);
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API,
+  api_secret: process.env.CLOUDINARY_URL, 
+});
 
 app.use(cors());
 app.use(express.json());
@@ -38,7 +45,28 @@ app.post(
   }
 );
 
-app.get("/place/description/:name", async (req: express.Request, res: express.Response) => {
+app.post("/insert-data", async (req: express.Request, res: express.Response) => {
+  console.log(req.body);
+  try {
+    const data = req.body.data;
+    const country = new Country({
+      name: data["city"],
+      country: data["country"],
+      latitude: data["latitude"],
+      longitude: data["longitude"],
+      description: data["description"],
+    });
+    const result = await country.save();
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(502).json("ERROR");
+  }
+});
+
+app.get(
+  "/place/description/:name",
+  async (req: express.Request, res: express.Response) => {
     const { name } = req.params;
     const cityName = Object.keys(locations).find(
       (cityName) => cityName === name
@@ -57,7 +85,6 @@ app.get("/place/description/:name", async (req: express.Request, res: express.Re
           res.locals.error = err;
           res.status(404).send(err);
         });
-
     }
   }
 );
