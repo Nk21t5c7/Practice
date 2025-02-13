@@ -17,6 +17,7 @@ const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const Countries_1 = __importDefault(require("./models/Countries"));
+const multer_1 = __importDefault(require("multer"));
 const cloudinary_1 = require("cloudinary");
 const locations = require("./locations.json");
 const axios = require("axios");
@@ -28,13 +29,16 @@ mongoose_1.default.connect(mongoUri);
 cloudinary_1.v2.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API,
-    api_secret: process.env.CLOUDINARY_URL, // Click 'View API Keys' above to copy your API secret
+    api_secret: process.env.CLOUDINARY_URL,
 });
+const storage = multer_1.default.memoryStorage();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 const apiKey = process.env.WEATHER_API_KEY;
-const nasaApi = process.env.NASA_API_KEY;
 const url = `https://api.openweathermap.org/data/2.5/weather?`;
+const upload = (0, multer_1.default)({
+    storage,
+});
 app.set("port", port);
 app.post("/current-weather", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield fetch(url + `lat=${req.body.lat}&lon=${req.body.long}&appid=${apiKey}`);
@@ -47,17 +51,37 @@ app.post("/current-weather", (req, res) => __awaiter(void 0, void 0, void 0, fun
         console.log("error");
     }
 }));
-app.post("/insert-data", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+function handleUpload(file) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log("file", file);
+        const res = yield cloudinary_1.v2.uploader.upload(file, {
+            resource_type: "auto",
+        });
+        return res;
+    });
+}
+app.post("/insert-data", upload.single("url"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     console.log(req.body);
     try {
-        const data = req.body.data;
-        const country = new Countries_1.default({
-            name: data["city"],
-            country: data["country"],
-            latitude: data["latitude"],
-            longitude: data["longitude"],
-            description: data["description"],
-        });
+        if (!req.file) {
+            const b64 = Buffer.from(req.file.buffer).toString("base64");
+            let dataURI = "data:" + ((_a = req.file) === null || _a === void 0 ? void 0 : _a.mimetype) + ";base64," + b64;
+            const cldRes = yield handleUpload(dataURI);
+            const data = req.body.data;
+            const uploadImg = cloudinary_1.v2.uploader.upload(data["url"], {
+                resource_type: "auto",
+            });
+            console.log(uploadImg);
+            const country = new Countries_1.default({
+                name: data["city"],
+                country: data["country"],
+                latitude: data["latitude"],
+                longitude: data["longitude"],
+                description: data["description"],
+                url: uploadImg,
+            });
+        }
         const result = yield country.save();
         res.status(200).json(result);
     }
