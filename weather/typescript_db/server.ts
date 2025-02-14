@@ -17,9 +17,9 @@ const mongoUri = process.env.MONGODB as string;
 mongoose.connect(mongoUri);
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API,
-  api_secret: process.env.CLOUDINARY_URL,
+  cloud_name: process.env.CLOUD_NAME as string,
+  api_key: process.env.CLOUDINARY_API as string,
+  api_secret: process.env.CLOUDINARY_URL as string,
 });
 
 const storage = Multer.memoryStorage();
@@ -50,39 +50,42 @@ app.post(
   }
 );
 
-async function handleUpload(file: any) {
-  console.log("file", file);
-  const res = await cloudinary.uploader.upload(file, {
-    resource_type: "auto",
-  });
-  return res;
-}
+// async function handleUpload(file: any) {
+//   console.log("file", file);
+//   const res = await cloudinary.uploader.upload(file, {
+//     resource_type: "auto",
+//   });
+//   return res;
+// }
 
 app.post(
   "/insert-data",
   upload.single("url"),
   async (req: express.Request, res: express.Response) => {
-    console.log(req.body);
+    console.log("req.body", req.body.data.url, req.body);
     try {
-      if (!req.file) {
-        const b64 = Buffer.from(req.file.buffer).toString("base64");
-        let dataURI = "data:" + req.file?.mimetype + ";base64," + b64;
-        const cldRes = await handleUpload(dataURI);
-        const data = req.body.data;
-        const uploadImg = cloudinary.uploader.upload(data["url"], {
-          resource_type: "auto",
-        });
-        console.log(uploadImg);
-
-        const country = new Country({
-          name: data["city"],
-          country: data["country"],
-          latitude: data["latitude"],
-          longitude: data["longitude"],
-          description: data["description"],
-          url: uploadImg,
-        });
+      if (!req.body.data.url) {
+        res.status(400).json({ error: "No file uploaded" });
+        return;
       }
+      
+      cloudinary.uploader.upload(req.body['url'])
+      const data = req.body.data;
+      const removeFake =  data["url"].replace("C:\\fakepath\\", "");
+      const uploadImg = await cloudinary.uploader.upload(removeFake, {
+        resource_type: "auto",
+      });
+      console.log('uploadImg', uploadImg);
+
+      const country = new Country({
+        name: data["city"],
+        country: data["country"],
+        latitude: data["latitude"],
+        longitude: data["longitude"],
+        description: data["description"],
+        url: uploadImg,
+      });
+
       const result = await country.save();
       res.status(200).json(result);
     } catch (error) {

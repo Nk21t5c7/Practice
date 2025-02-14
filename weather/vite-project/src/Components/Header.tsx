@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className = "bg-slate-200 p-10 sm:grid xl:grid-cols-[1fr_1200px_1fr] xl:justify-center">
-      <div className=" px-6 headerContainer grid grid-cols-1 grid-rows-1 justify-items-center justify-center sm:justify-items-stretch items-center xl:max-w-[1200px] xl:col-start-2 xl:col-end-3 ">
-        <h1 className=" text-4xl font-bold py-2 row-start-1 row-end-2">
+    <header className = "bg-slate-200 py-10 px-6 ">
+      <div className="headerContainer basis-full flex nowrap items-center xl:max-w-[1200px] xl:m-auto xl:p-6">
+        <h1 className=" text-4xl font-bold basis-full">
           Weather
         </h1>
-        <nav className="row-start-1 row-end-2">
+        <nav className="">
           <ul className="flex gap-8 items-center">
             <li className="hover:text-blue-600">
               <Link to="/">Home</Link>

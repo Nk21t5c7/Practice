@@ -51,37 +51,35 @@ app.post("/current-weather", (req, res) => __awaiter(void 0, void 0, void 0, fun
         console.log("error");
     }
 }));
-function handleUpload(file) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log("file", file);
-        const res = yield cloudinary_1.v2.uploader.upload(file, {
+// async function handleUpload(file: any) {
+//   console.log("file", file);
+//   const res = await cloudinary.uploader.upload(file, {
+//     resource_type: "auto",
+//   });
+//   return res;
+// }
+app.post("/insert-data", upload.single("url"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("req.body", req.body.data.url, req.body);
+    try {
+        if (!req.body.data.url) {
+            res.status(400).json({ error: "No file uploaded" });
+            return;
+        }
+        cloudinary_1.v2.uploader.upload(req.body['url']);
+        const data = req.body.data;
+        const removeFake = data["url"].replace("C:\\fakepath\\", "");
+        const uploadImg = yield cloudinary_1.v2.uploader.upload(removeFake, {
             resource_type: "auto",
         });
-        return res;
-    });
-}
-app.post("/insert-data", upload.single("url"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    console.log(req.body);
-    try {
-        if (!req.file) {
-            const b64 = Buffer.from(req.file.buffer).toString("base64");
-            let dataURI = "data:" + ((_a = req.file) === null || _a === void 0 ? void 0 : _a.mimetype) + ";base64," + b64;
-            const cldRes = yield handleUpload(dataURI);
-            const data = req.body.data;
-            const uploadImg = cloudinary_1.v2.uploader.upload(data["url"], {
-                resource_type: "auto",
-            });
-            console.log(uploadImg);
-            const country = new Countries_1.default({
-                name: data["city"],
-                country: data["country"],
-                latitude: data["latitude"],
-                longitude: data["longitude"],
-                description: data["description"],
-                url: uploadImg,
-            });
-        }
+        console.log('uploadImg', uploadImg);
+        const country = new Countries_1.default({
+            name: data["city"],
+            country: data["country"],
+            latitude: data["latitude"],
+            longitude: data["longitude"],
+            description: data["description"],
+            url: uploadImg,
+        });
         const result = yield country.save();
         res.status(200).json(result);
     }

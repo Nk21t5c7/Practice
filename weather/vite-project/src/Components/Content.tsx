@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  faSnowflake,
-  faSun,
-} from "@fortawesome/free-regular-svg-icons";
+import { faSnowflake, faSun } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloud, faCloudRain, faWind } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloud,
+  faCloudRain,
+  faWind,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface WeatherData {
   place: {
@@ -20,11 +21,12 @@ interface WeatherData {
   weather: {
     sky: string;
   };
+  pressure: number;
 }
 
 const Content: React.FC = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  // const [coordinates, setCoordinates] = useState<object | null>(null); 
+  // const [coordinates, setCoordinates] = useState<object | null>(null);
 
   useEffect(() => {
     const weatherdata = async () => {
@@ -41,7 +43,7 @@ const Content: React.FC = () => {
             console.log("data.coords", data.coords);
             return data.coords;
           })
-          .then((coords)=> {
+          .then((coords) => {
             // setCoordinates(coords);
             return coords;
           })
@@ -81,6 +83,7 @@ const Content: React.FC = () => {
               weather: {
                 sky: result.weather[0].main,
               },
+              pressure: result.main.pressure,
             });
           })
           .catch((err) => {
@@ -97,7 +100,7 @@ const Content: React.FC = () => {
   return (
     <>
       {weather ? (
-        <div className="weatherContainer ">
+        <div className="weatherContainer m-auto max-w-[1200px]">
           <div className="place">
             <h2 className="text-2xl">
               Current Weather in
@@ -118,9 +121,9 @@ const Content: React.FC = () => {
                 <FontAwesomeIcon icon={faCloudRain} />
               ) : weather.weather.sky === "Clear" ? (
                 <FontAwesomeIcon icon={faSun} />
-              ) :weather.weather.sky === "Clouds" ? (
+              ) : weather.weather.sky === "Clouds" ? (
                 <FontAwesomeIcon icon={faCloud} />
-              ): weather.weather.sky === "Windy" ? (
+              ) : weather.weather.sky === "Windy" ? (
                 <FontAwesomeIcon icon={faWind} />
               ) : (
                 ""
@@ -128,19 +131,29 @@ const Content: React.FC = () => {
             </p>
           </div>
 
-          <div className="temp-container border-2 w-fit p-5 rounded-2xl my-3">
-            <p>Temperature: {Math.round(weather.temperature.temp - 273.15)}℃</p>
-            <p>
-              Feels Like: {Math.round(weather.temperature.feels_like - 273.15)}℃
-            </p>
-            <p>Min: {Math.round(weather.temperature.temp_min - 273.15)}℃</p>
-            <p>Max: {Math.round(weather.temperature.temp_max - 273.15)}℃</p>
+          <div className = 'grid grid-cols-[2fr_1fr] text-center items-center'>
+            <img src="https://picsum.photos/1000/700" className="w-[100%] h-auto " />
+
+            <div className="temp-container my-3  bg-violet-200 p-4 translate-x-[-5rem] h-[50%] items-center flex flex-col content-center justify-center">
+              <p className="py-2">
+                Temperature: {Math.round(weather.temperature.temp - 273.15)}℃
+              </p>
+              <p className="py-2">
+                Feels Like:{" "}
+                {Math.round(weather.temperature.feels_like - 273.15)}℃
+              </p>
+              <p className="py-2">Min: {Math.round(weather.temperature.temp_min - 273.15)}℃</p>
+              <p className="py-2">Max: {Math.round(weather.temperature.temp_max - 273.15)}℃</p>
+            
+              <p className="py-2">
+                Pressure: {weather.pressure} Pa
+              </p>
+            </div>
           </div>
         </div>
       ) : (
-        <p>LOADING</p>
+        <p className="m-auto max-w-[1200px]  p-6">LOADING</p>
       )}
-
     </>
   );
 };
