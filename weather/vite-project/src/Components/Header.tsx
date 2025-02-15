@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className = "bg-slate-200 py-10 px-6 ">
+    <header className = "bg-slate-200 p-6 ">
       <div className="headerContainer basis-full flex nowrap items-center xl:max-w-[1200px] xl:m-auto xl:p-6">
         <h1 className=" text-4xl font-bold basis-full">
           Weather

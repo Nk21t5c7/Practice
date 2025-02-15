@@ -131,10 +131,15 @@ const Content: React.FC = () => {
             </p>
           </div>
 
-          <div className = 'grid grid-cols-[2fr_1fr] text-center items-center'>
-            <img src="https://picsum.photos/1000/700" className="w-[100%] h-auto " />
+          <div className="grid grid-cols-1 grid-rows-1 sm:grid-cols-[2fr_1fr] sm:grid-rows-1 text-center items-center relative">
+            <img
+              src="https://picsum.photos/800/500"
+              className="w-[100%] h-auto block m-0 p-0"
+            />
 
-            <div className="temp-container my-3  bg-violet-200 p-4 translate-x-[-5rem] h-[50%] items-center flex flex-col content-center justify-center">
+            <div
+              className="temp-container  absolute inset-0 bg-blend-bg-blend-color-dodge sm:relative sm:bg-blend-normal text-white lg:text-2xl bg-slate-700 p-4 sm:translate-x-[-5rem] sm:translate-y-0 mix-blend-hard-light items-center flex flex-col content-center justify-center"
+            >
               <p className="py-2">
                 Temperature: {Math.round(weather.temperature.temp - 273.15)}℃
               </p>
@@ -142,12 +147,14 @@ const Content: React.FC = () => {
                 Feels Like:{" "}
                 {Math.round(weather.temperature.feels_like - 273.15)}℃
               </p>
-              <p className="py-2">Min: {Math.round(weather.temperature.temp_min - 273.15)}℃</p>
-              <p className="py-2">Max: {Math.round(weather.temperature.temp_max - 273.15)}℃</p>
-            
               <p className="py-2">
-                Pressure: {weather.pressure} Pa
+                Min: {Math.round(weather.temperature.temp_min - 273.15)}℃
               </p>
+              <p className="py-2">
+                Max: {Math.round(weather.temperature.temp_max - 273.15)}℃
+              </p>
+
+              <p className="py-2">Pressure: {weather.pressure} Pa</p>
             </div>
           </div>
         </div>
