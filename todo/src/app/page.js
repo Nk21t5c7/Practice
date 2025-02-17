@@ -1,10 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import CardList from "./components/CardList";
-// import 
-
 // const prisma = new PrismaClient(); これ毎回宣言するとエラーの原因になる
-
 
 export default function Home() {
   const [allTodos, setAllTodos] = useState([]);
