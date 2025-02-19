@@ -23,19 +23,16 @@ export default function Home() {
 
   return (
     <div className=" font-[family-name:var(--font-geist-sans)]">
-      <main className="">
+      <main className="p-6 h-[70vh] flex">
         {allTodos != '' ?
           <>
             <CardList allTodos={allTodos} />
           </>
           :
-          <p>Loading...</p>
+          <p className='text-3xl content-center'>Loading...</p>
 
         }
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-
-      </footer>
     </div>
   );
 }

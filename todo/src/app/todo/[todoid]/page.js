@@ -24,8 +24,8 @@ export default function Page({ params: todoid }) {
 
     return (
         <div className=" font-[family-name:var(--font-geist-sans)]">
-            <main className="">
-                {console.log(todo)}
+            <main className=" h-[70vh]">
+                {/* {console.log(todo)} */}
                 {todo != '' ?
                     <article className='p-4'>
                         <h2 className='text-3xl'>{todo.todoTitle}</h2>
@@ -36,9 +36,6 @@ export default function Page({ params: todoid }) {
                     <p>Loading...</p>
                 }
             </main>
-            <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-
-            </footer>
         </div>
     );
 }
