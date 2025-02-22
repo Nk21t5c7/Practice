@@ -1,5 +1,6 @@
 
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,25 +16,52 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
     todoTitle: z.string().min(2).max(50),
-    description: z.string().min(2).max(200),
+    description: z.string().min(5).max(200),
 })
 
-function onSubmit(values) {
-    console.log(values)
-}
 
 const FormContainer = () => {
+    const [formData, setFormData] = useState({});
 
-    const form = useForm  ({
+
+    const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            todoTitle: "",
+            description: "",
         },
     })
 
+    const handleChange = (e) => {
+        const name = e.target.value;
+        const value = e.target.value;
+        setFormData((prevValue) => {
+            return {
+                ...prevValue,
+                [name]: value
+            }
+        })
+        console.log(formData);
+    }
+
+    const postTodo = async () => {
+        // e.preventDefault();
+        // console.log(formData);
+        axios.post(`http://localhost:3015/api/add`, { formData })
+
+            .then((result) => {
+                console.log(result);
+
+            }).catch((err) => {
+                console.log('err', err);
+            });
+
+    }
+
+
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(postTodo)} className="space-y-8">
                 <FormField
                     control={form.control}
                     name="todoTitle"
@@ -41,7 +69,7 @@ const FormContainer = () => {
                         <FormItem>
                             <FormLabel>Todo Title</FormLabel>
                             <FormControl>
-                                <Input placeholder="Java Assignment" {...field} />
+                                <Input onChange={handleChange} name="todoTitle" placeholder="Java Assignment" {...field} />
                             </FormControl>
                         </FormItem>
                     )}
@@ -52,8 +80,8 @@ const FormContainer = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Description</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Assignment3 " {...field} />
+                            <FormControl className="w-[400px]">
+                                <Input className="max-w-[400px]" name="description" placeholder="Assignment3 " {...field} />
                             </FormControl>
                         </FormItem>
                     )}
