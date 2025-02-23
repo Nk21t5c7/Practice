@@ -13,6 +13,7 @@ import {
     FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import addTodo from '@/app/action/postTodo';
 
 const formSchema = z.object({
     todoTitle: z.string().min(2).max(50),
@@ -44,17 +45,47 @@ const FormContainer = () => {
         console.log(formData);
     }
 
-    const postTodo = async () => {
+    const postTodo = async (formData) => {
+        const {todoTitle, description} = formData;
+        addTodo({todoTitle, description});
+
         // e.preventDefault();
         // console.log(formData);
-        axios.post(`http://localhost:3015/api/add`, { formData })
 
-            .then((result) => {
-                console.log(result);
+        // await fetch('http://localhost:3015/api/add', {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         todoTitle: formData.todoTitle,
+        //         description: formData.description
+        //     }),
+        // })
+        //     .then((result) => {
+        //         if (response.ok) {
+        //             return response.json(); 
+        //         } else {
+        //             throw new Error('Failed'); 
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.error('Error caught:', err); 
+        //     });
 
-            }).catch((err) => {
-                console.log('err', err);
-            });
+
+
+        // axios.post(`http://localhost:3015/api/add`, { formData })
+
+
+        // axios.post(`http://localhost:3015/api/add/${JSON.stringify(formData)}`)
+
+        //     .then((result) => {
+        //         console.log(result);
+
+        //     }).catch((err) => {
+        //         console.log('err', err);
+        //     });
 
     }
 
