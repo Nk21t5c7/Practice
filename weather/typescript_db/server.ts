@@ -3,7 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import Country from "./models/Countries";
-import Multer from "multer";
+// import Multer from "multer";
+import multer, { StorageEngine } from 'multer';
+import path from 'path';
+
 import { v2 as cloudinary } from "cloudinary";
 
 const locations = require("./locations.json");
@@ -22,13 +25,23 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_URL as string,
 });
 
-const storage = Multer.memoryStorage();
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); 
+  }
+});
+
+// Multerの設定
+// const upload = multer({ storage });
 
 app.use(cors());
 app.use(express.json());
 const apiKey = process.env.WEATHER_API_KEY;
 const url = `https://api.openweathermap.org/data/2.5/weather?`;
-const upload = Multer({
+const upload = multer({
   storage,
 });
 
@@ -49,7 +62,6 @@ app.post(
     }
   }
 );
-
 // async function handleUpload(file: any) {
 //   console.log("file", file);
 //   const res = await cloudinary.uploader.upload(file, {
@@ -57,22 +69,24 @@ app.post(
 //   });
 //   return res;
 // }
-
 app.post(
   "/insert-data",
   upload.single("url"),
   async (req: express.Request, res: express.Response) => {
-    console.log("req.body", req.body.data.url, req.body);
+    console.log("req.body", req.file, req.body);
     try {
-      if (!req.body.data.url) {
+      if (!req.file) {
         res.status(400).json({ error: "No file uploaded" });
         return;
       }
       
-      cloudinary.uploader.upload(req.body['url'])
+      // cloudinary.uploader.upload(req.body['url'])
       const data = req.body.data;
-      const removeFake =  data["url"].replace("C:\\fakepath\\", "");
-      const uploadImg = await cloudinary.uploader.upload(removeFake, {
+      // const removeFake =  data["url"].replace("C:\\fakepath\\", "");
+      // const uploadImg = await cloudinary.uploader.upload(removeFake, {
+      //   resource_type: "auto",
+      // });
+      const uploadImg = await cloudinary.uploader.upload(req.file.path, {
         resource_type: "auto",
       });
       console.log('uploadImg', uploadImg);

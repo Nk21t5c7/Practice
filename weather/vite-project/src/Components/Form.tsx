@@ -19,47 +19,68 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-interface formData {
-  city: string;
-  country: string;
-  description: string;
-  latitude: number;
-  longitude: number;
-  url: string;
-}
+// interface formData {
+//   city: string;
+//   country: string;
+//   description: string;
+//   latitude: number;
+//   longitude: number;
+//   url: string;
+// }
 
 const Form = () => {
-  // const [city, setCity] = useState<string>("");
-  // const [country, setCountry] = useState<string>("");
-  // const [description, setDescription] = useState<string>("");
-  // const [lat, setLat] = useState<number>();
-  // const [lon, setLon] = useState<number>();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [city, setCity] = useState<string>("");
+  const [country, setCountry] = useState<string>("");
+  const [latitude, setLatitude] = useState<number>(0);
+  const [longitude, setLongitude] = useState<number>(0);
+  const [description, setDescription] = useState<string>("");
 
-  const [data, setData] = useState<formData>({
-    city: "",
-    country: "",
-    description: "",
-    latitude: 0,
-    longitude: 0,
-    url: "",
-  });
+  // const [data, setData] = useState<formData>({
+  //   city: "",
+  //   country: "",
+  //   description: "",
+  //   latitude: 0,
+  //   longitude: 0,
+  //   url: "",
+  // });
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    sendData();
-  }
 
-  function sendData() {
-    axios
-      .post("http://localhost:3098/insert-data", { data })
-      .then((result) => {
-        console.log(result);
-        return;
-      })
-      .catch((err) => {
-        console.log(err);
+    if (!selectedFile) {
+      alert("Please select a file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    // let formData: FormData = new FormData();
+     formData.append("url", selectedFile);
+    // formData.append("city", city);
+    // formData.append("country", country);
+    // formData.append("latitude", latitude.toString());
+    // formData.append("longitude", longitude.toString());
+    // formData.append("description", description);
+
+    console.log(formData, selectedFile);
+
+    try {
+      const response = await axios.post("http://localhost:3098/insert-data", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-  }
+      console.log("Upload success:", response.data);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
 
   return (
     <div className="m-auto max-w-[1200px]  p-6 ">
@@ -78,9 +99,9 @@ const Form = () => {
           </InputLabel>
           <Input
             id="city"
-            onChange={(e) => setData({ ...data, city: e.target.value })}
+            onChange={(e) => setCity(e.target.value)}
             name="city"
-            value={data.city}
+            value={city}
             className="col-start-2 col-end-3"
           />
         </FormControl>
@@ -93,9 +114,9 @@ const Form = () => {
           </InputLabel>
           <Input
             id="country"
-            onChange={(e) => setData({ ...data, country: e.target.value })}
+            onChange={(e) => setCountry(e.target.value)}
             name="country"
-            value={data.country}
+            value={country}
             className="col-start-2 col-end-3"
           />
         </FormControl>
@@ -108,11 +129,9 @@ const Form = () => {
           </InputLabel>
           <Input
             id="latitude"
-            onChange={(e) =>
-              setData({ ...data, latitude: Number(e.target.value) })
-            }
+            onChange={(e) => setLatitude(Number(e.target.value))}
             name="latitude"
-            value={data.latitude}
+            value={latitude}
             className="col-start-2 col-end-3"
           />
         </FormControl>
@@ -126,19 +145,19 @@ const Form = () => {
           <Input
             id="longitude"
             onChange={(e) =>
-              setData({ ...data, longitude: Number(e.target.value) })
+              setLongitude(Number(e.target.value))
             }
             name="longitude"
-            value={data.longitude}
+            value={longitude}
             className="col-start-2 col-end-3"
           />
         </FormControl>
         <FormControl className="col-start-1 col-end-3">
           <Textarea
             onChange={(e) => {
-              setData({ ...data, description: e.target.value });
+              setDescription((e.target.value ));
             }}
-            value={data.description}
+            value={description}
             className="h-[20vh]"
           />
         </FormControl>
@@ -155,9 +174,9 @@ const Form = () => {
           Upload files
           <VisuallyHiddenInput
             id="url"
-            onChange={(e) => setData({ ...data, url: e.target.value })}
+            onChange={handleChangeFile}
             name="url"
-            value={data.url}
+            // value={selectedFile}
             type="file"
           />
         </Button>
