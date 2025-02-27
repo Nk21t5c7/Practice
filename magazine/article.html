@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/541f2a7c72.js" crossorigin="anonymous"></script>
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href='images/is'>
+    <title>Article</title>
+</head>
+<body>
+    <header>
+        <div id = 'header'>
+            <h1>ONSEN</h1>
+            <i id= 'menuButton' class="fa-solid fa-bars"></i>
+            <nav>
+                <div class="hamburger">
+                    <ul class  = "menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="article.html">Articles</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="sources.html">Sources</a></li>
+                    </ul>    
+                </div>   
+                <div class = 'desktop'>
+                    <ul class  = "menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="article.html">Articles</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="sources.html">Sources</a></li>
+                    </ul>  
+                </div>
+            </nav>
+            <i id = 'searchIcon' class="fa-solid fa-magnifying-glass" aria-hidden = 'true'></i>
+
+            <div id = 'search'>
+                <div id = 'searchDiv'>
+                    <form action="#" method="get" class = 'searchForm'>
+                        <label for="searchBox" class = 'visually-hidden'>Search</label>
+                        <input id = 'searchBox' type="text" placeholder="Search" >
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main >
+            <section id = 'articlePage'>
+            <img id = 'imgHead' src="images/Baby_snowmonkey.jpg" alt="Monkeys in hot spring.">
+            <h2 class = 'article-h2'>Jigokudani Monkey Park - Snow monkeys enjoying a hot spring on a cold winter day</h2>
+            <p class = 'info'>by Wikipedia</p>
+            <p class = 'date info'>Mar 25th 2024</p>
+
+            <div class="firstHalf-P">
+                <h3>Jigokudani Monkey Park</h3>
+                <p>
+                    Jigokudani Monkey Park (地獄谷野猿公苑, Jigokudani Yaen Kōen) is located in Yamanouchi, Nagano Prefecture, Japan. It is part of the Joshinetsu Kogen National Park (locally known as Shigakogen), and is located in the valley of the Yokoyu-River, in the northern part of the prefecture. The name Jigokudani, meaning "Hell's Valley", is due to the steam and boiling water that bubbles out of small crevices in the frozen ground, surrounded by steep cliffs and formidably cold and <span class = "orphan">hostile forests. </span>
+                </p>
+                <p>
+                    The heavy snowfalls (snow covers the ground for four months a year), an elevation of 850 m (2,800 ft), and being only accessible via a narrow 2 km (1.2 mi) footpath through the forest, keeps it uncrowded despite the park being relatively <span class = "orphan"> well known.</span>
+                </p>
+                <div class="secondHalf-P">
+                    <h3>Snow Monkeys and Jigokudani</h3>
+                    <p>
+                        It is famous for its large population of wild Japanese macaques (Macaca fuscata), more commonly referred to as snow monkeys, that go to the valley during the winter, foraging elsewhere in the national park during the warmer months. The monkeys descend from the steep cliffs and forest to sit in the warm waters of the onsen (hotsprings), and return to the security of the forests in <span class = "orphan">the evenings.</span>
+                    </p>
+                    <p>
+                        However, since the monkeys are fed by park attendants, they are in the area of the hot springs all the year round, and a visit at any season will enable the visitor to observe hundreds of <span class = "orphan">the macaques.</span>
+                    </p>
+
+                    <img id = 'secondImg' src="images/640px-Jigokudani_Hotspring_Gorakuen.jpeg" alt="A river in front of a mountain and a house on a cliff.">
+                    <p>
+                        Jigokudani is not the farthest north that monkeys live. The Shimokita Peninsula is at the northern part of the Honshū island and the northwest area of this peninsula, latitude +41°31' longitude +140°56', approximately 500 km (310 mi) north from Jigokudani is the northern limit of Japanese macaque habitat. No (non-human) primate is known to live in a <span class = "orphan">colder climate.</span>
+                    <br>
+                        The Jigokudani monkey park became famous after appearing in the <span class = "orphan">documentary Baraka.</span>
+                    </p>
+                </div>
+            
+            </section>
+            <div id = 'toTop'>
+                <a href = '#articlePage'>
+                    <div class = 'circle top-article-source'>
+                        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+                    </div>
+                </a>
+            </div> 
+    </main>
+    <footer>
+        <div class="footer">
+            <ul>
+                <li><a href="article.html">About</a></li>
+                <li><a href="contact.html">FAQ</a></li>
+                <li><a href="article.html">Privacy</a></li>
+                <li>Follow Us</li>
+                <li id = 'icons'>
+                    <ul id = 'socialMedia'>
+                        <li><a href = 'https://www.instagram.com' aria-label = 'Link to our instagram account'><i class="fa-brands fa-instagram" aria-hidden = 'true'></i></a></li>
+                        <li><a href = 'https://www.tiktok.com' aria-label = 'Link to our tiktok account'><i class="fa-brands fa-tiktok" aria-hidden = 'true'></i></a></li>
+                        <li><a href = 'https://www.youtube.com' aria-label='Link to our youtube channel'><i class="fa-brands fa-youtube" aria-hidden = 'true'></i></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
