@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/541f2a7c72.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src = 'index.js' defer></script>
+    <link rel="icon" href="images/favicon.jpg">
+
+
+    <title>Contact</title>
+</head>
+<body>
+    <header>
+        <div id = 'header'>
+            <h1>ONSEN</h1>
+            <i id= 'menuButton' class="fa-solid fa-bars" aria-hidden="true"></i>
+            <nav>
+                <div class="hamburger">
+                    <ul class  = "menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="article.html">Articles</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="sources.html">Sources</a></li>
+                    </ul>    
+                </div>   
+                <div class = 'desktop'>
+                    <ul class  = "menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="article.html">Articles</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="sources.html">Sources</a></li>
+                    </ul>  
+                </div>
+            </nav>
+            <i id = 'searchIcon' class="fa-solid fa-magnifying-glass" aria-hidden = 'true'></i>
+
+            <div id = 'search'>
+                <div id = 'searchDiv'>
+                    <form action="#" method="get" class = 'searchForm'>
+                        <label for="searchBox" class = 'visually-hidden'>Search</label>
+                        <input id = 'searchBox' type="text" placeholder="Search">
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    </header>
+    <main>
+        <img class = 'contact-img' src="images/640px-Unzen_jigoku_02.jpg" alt="Unzen hot spring in front of a mountain.">
+        <div>
+            <h2 class = 'contact-h2'>Contact Us</h2>
+            <form  action= "https://formspree.io/f/xqazenwz" method= "POST" id = 'contactForm'>
+                <label for="name">Name</label>
+                <input type="text" name = 'name' id="name" placeholder="Name" class = 'contact' required/>
+                <label for="email">Email Address</label>
+                <input type="email" name = 'name' id="email" placeholder="Email" class = 'contact' required/>
+                <label for="feedback">Your feedback</label>
+                <textarea  name = 'feedback' id="feedback" class = 'contact' ></textarea>
+                
+                <input type="submit" value="Submit" />
+                
+            </form>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">
+            <ul>
+                <li><a href="article.html">About</a></li>
+                <li><a href="contact.html">FAQ</a></li>
+                <li><a href="article.html">Privacy</a></li>
+                <li>Follow Us</li>
+                <li id = 'icons'>
+                    <ul id = 'socialMedia'>
+                        <li><a href = 'https://www.instagram.com' aria-label = 'Link to our instagram account'><i class="fa-brands fa-instagram" aria-hidden = 'true'></i></a></li>
+                        <li><a href = 'https://www.tiktok.com' aria-label = 'Link to our tiktok account'><i class="fa-brands fa-tiktok" aria-hidden = 'true'></i></a></li>
+                        <li><a href = 'https://www.youtube.com' aria-label='Link to our youtube channel'><i class="fa-brands fa-youtube" aria-hidden = 'true'></i></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
