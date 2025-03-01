@@ -1,0 +1,103 @@
+[
+    {
+      "breed": "Toy Poodle",
+      "origin": "France",
+      "size": "Small",
+      "weight": "4-6 lbs (2-3 kg)",
+      "personality": "Intelligent, alert, and friendly",
+      "life_expectancy": "12-15 years",
+      "fun_fact": "Toy Poodles are one of the most intelligent dog breeds and are great at performing tricks.",
+      "long_description": "The Toy Poodle is a small, elegant dog breed known for its intelligence and hypoallergenic coat. Originally bred as a companion dog, the Toy Poodle is highly trainable and enjoys being the center of attention. They are friendly, affectionate, and good with children and other pets. Despite their small size, Toy Poodles are energetic and enjoy mental and physical stimulation. They require regular grooming to maintain their curly coat, but they are low-shedding, making them a great choice for people with allergies."
+    },
+    {
+      "breed": "Border Collie",
+      "origin": "Scotland/England",
+      "size": "Medium",
+      "weight": "30-45 lbs (13-20 kg)",
+      "personality": "Highly intelligent, energetic, and hardworking",
+      "life_expectancy": "12-15 years",
+      "fun_fact": "Border Collies are often considered the most intelligent dog breed and excel in agility and herding.",
+      "long_description": "Border Collies are highly intelligent and energetic working dogs originally bred to herd sheep. They are known for their exceptional problem-solving skills and trainability. These dogs thrive in active households where they can get both mental and physical exercise. Border Collies are also well-suited for dog sports and activities like agility training, obedience, and herding trials. Their energy and need for constant stimulation make them better suited for experienced dog owners who can keep them engaged and busy."
+    },
+    {
+      "breed": "Australian Shepherd",
+      "origin": "United States",
+      "size": "Medium",
+      "weight": "40-65 lbs (18-29 kg)",
+      "personality": "Energetic, intelligent, and loyal",
+      "life_expectancy": "12-15 years",
+      "fun_fact": "Australian Shepherds are known for their herding instincts and are excellent working dogs.",
+      "long_description": "Australian Shepherds are active, intelligent dogs known for their herding instincts and agility. They thrive in active households and are best suited for owners who can provide them with enough physical and mental exercise. These dogs are extremely loyal and protective of their families. Despite their name, Australian Shepherds were actually developed in the United States to work on ranches and farms. They excel in obedience training and agility competitions and can adapt well to a variety of environments as long as they get enough exercise."
+    },
+    {
+      "breed": "Cocker Spaniel",
+      "origin": "England",
+      "size": "Medium",
+      "weight": "20-30 lbs (9-14 kg)",
+      "personality": "Affectionate, playful, and friendly",
+      "life_expectancy": "12-15 years",
+      "fun_fact": "Cocker Spaniels are popular for their long ears and beautiful coat.",
+      "long_description": "Cocker Spaniels are friendly, affectionate dogs that make great companions for families. Known for their beautiful silky coat and long ears, they were originally bred as hunting dogs, particularly for flushing out birds. Despite their sporting background, they are well-mannered and love to be part of the family. Cocker Spaniels are affectionate and enjoy being involved in family activities, especially if it means getting attention or a treat. They require regular grooming to maintain their coat, but their sweet demeanor makes the effort worthwhile."
+    },
+    {
+      "breed": "Bulldog",
+      "origin": "England",
+      "size": "Medium",
+      "weight": "40-50 lbs (18-23 kg)",
+      "personality": "Loyal, calm, and courageous",
+      "life_expectancy": "8-12 years",
+      "fun_fact": "Bulldogs have a distinctive wrinkled face and are known for their calm demeanor.",
+      "long_description": "Bulldogs are stocky, muscular dogs with a calm and loyal personality. They were originally bred for bull-baiting, but today they are known for being great companions and family pets. Bulldogs are often calm and content to relax at home, but they are also courageous and protective of their family. Their low energy level makes them suitable for apartment living, though they still enjoy short walks. Bulldogs are prone to certain health issues, particularly related to their brachycephalic (flat-faced) structure, so they need careful attention to their health."
+    },
+    {
+      "breed": "Shiba Inu",
+      "origin": "Japan",
+      "size": "Medium",
+      "weight": "17-23 lbs (8-10 kg)",
+      "personality": "Independent, alert, and confident",
+      "life_expectancy": "12-15 years",
+      "fun_fact": "Shiba Inus are known for their cat-like personality and fox-like appearance.",
+      "long_description": "The Shiba Inu is a small-to-medium breed with a bold, independent personality. Originally bred for hunting in Japan, Shibas are confident, alert, and intelligent. They are known for their fox-like appearance, with erect ears and a curled tail. Shiba Inus are often compared to cats due to their independence and cleanliness. While they are loyal to their families, they can be aloof with strangers. Shiba Inus are not always easy to train due to their independent nature, so early socialization and consistent training are important."
+    },
+    {
+      "breed": "Basset Hound",
+      "origin": "France/Belgium",
+      "size": "Medium",
+      "weight": "40-65 lbs (18-29 kg)",
+      "personality": "Laid-back, friendly, and affectionate",
+      "life_expectancy": "10-12 years",
+      "fun_fact": "Basset Hounds have an excellent sense of smell, second only to the Bloodhound.",
+      "long_description": "Basset Hounds are known for their long ears, droopy faces, and remarkable sense of smell. Originally bred for hunting, Basset Hounds are excellent scent trackers. Despite their strong hunting instincts, they are calm, laid-back dogs that enjoy lounging around the house. Basset Hounds are affectionate and get along well with children and other pets. Their low energy levels make them suitable for apartment living, but they still need regular walks to stay healthy. They do tend to follow their noses, so keeping them on a leash is important during walks."
+    },
+    {
+      "breed": "Dalmatian",
+      "origin": "Croatia",
+      "size": "Medium",
+      "weight": "45-70 lbs (20-32 kg)",
+      "personality": "Energetic, intelligent, and outgoing",
+      "life_expectancy": "10-13 years",
+      "fun_fact": "Dalmatians are known for their distinctive black or liver-colored spots.",
+      "long_description": "Dalmatians are energetic, intelligent dogs known for their distinctive black or liver-colored spots. Originally bred as carriage dogs, Dalmatians have a high energy level and require regular exercise to stay fit. They are outgoing, friendly, and enjoy being around people, though they can be reserved with strangers. Dalmatians are also known for their history as firehouse mascots and their strong bond with humans. While they are intelligent and can be trained, they require consistent training and patience to avoid behavioral problems."
+    },
+    {
+      "breed": "Boxer",
+      "origin": "Germany",
+      "size": "Medium",
+      "weight": "50-70 lbs (23-32 kg)",
+      "personality": "Playful, loyal, and energetic",
+      "life_expectancy": "10-12 years",
+      "fun_fact": "Boxers are known for their strength and are great family dogs with a fun-loving attitude.",
+      "long_description": "Boxers are strong, athletic dogs with a playful and energetic nature. Originally bred to work as guard dogs, Boxers are protective of their family but are also known for their affectionate and loving personality. They are very social and love to interact with people, making them great companions for families with children. Boxers require regular exercise to stay healthy and happy, and their playful nature makes them a great match for active families. They are intelligent but can be stubborn, so early training is recommended."
+    },
+    {
+      "breed": "Whippet",
+      "origin": "England",
+      "size": "Medium",
+      "weight": "25-40 lbs (11-18 kg)",
+      "personality": "Gentle, friendly, and affectionate",
+      "life_expectancy": "12-15 years",
+      "fun_fact": "Whippets are known for their speed and agility, often referred to as 'poor man's greyhounds'.",
+      "long_description": "Whippets are medium-sized dogs known for their incredible speed and agility. Often described as the 'poor man's greyhound,' Whippets are fast and can reach speeds of up to 35 miles per hour. Despite their athleticism, they are gentle, calm, and affectionate dogs that enjoy lounging around the house with their owners. They are good with children and other pets and are known for being easy to train. Whippets require moderate exercise but are generally low-maintenance dogs that do well in both apartments and larger homes."
+    }
+  ]
+  
