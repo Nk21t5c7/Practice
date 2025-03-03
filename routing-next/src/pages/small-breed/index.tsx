@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import path from "path";
 import fs from "fs";
+import Link from "next/link";
 import Header from "@/components/Header";
 export async function getStaticProps() {
   const filePath = path.join(
     process.cwd(),
     "src",
-    // "app",
     "assets",
     "smallbreed.json"
   );
@@ -21,9 +21,8 @@ export async function getStaticProps() {
   };
 }
 
-interface SmallBreedProps {
-  aboutData: {
-    breed: string;
+interface BreedItem{
+  breed: string;
     origin: string;
     size: string;
     weight: string;
@@ -31,20 +30,32 @@ interface SmallBreedProps {
     life_expectancy: string;
     fun_fact: string;
     long_description: string;
-  }[];
+}
+
+interface SmallBreedProps {
+  aboutData:BreedItem[];
 }
 const SmallBreed: React.FC<SmallBreedProps> = ({ aboutData }) => {
   // useEffect(() => {
-    // {alert('cks')};
+  // {alert('cks')};
   // }, []);
   console.log(aboutData);
-  
-  return (
 
-    <div>
+  return (
+    <div className="font-[family-name:var(--font-geist-sans)] flex flex-row flex-nowrap items-center">
       <Header />
       <h2></h2>
-      {/* {aboutData && <p>{aboutData.breed}</p>} */}
+      <ul>
+      {aboutData.map((e:BreedItem, index) =>{
+        return (
+          <li key = {index}>
+             <Link href={`/small-breed/${encodeURIComponent(e.breed)}`} className="text-blue-500 hover:underline">
+             {e.breed}
+             </Link>
+          </li>
+        )
+      })}
+      </ul>
     </div>
   );
 };
