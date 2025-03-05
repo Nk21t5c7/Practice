@@ -12,7 +12,10 @@ export default function Home() {
       <main className=" basis-full flex flex-col gap-8 row-start-2 items-center sm:items-start w-[65vw] ">
         <div className="grid grid-cols-2 grid-rows-2 ">
           <Link href="/small-breed">
-            <div className="h-[35vh] w-[35vw] border-2">Small Breed</div>
+            <div className="h-[35vh] w-[35vw] border-2 after:content-['Small Breed'] after:bg-[url(public/images/teddy.jpg)]">
+              <img />
+              
+              </div>
           </Link>
           <Link href="/medium-breed">
             <div className="h-[35vh] w-[35vw] border-2">Medium Breed</div>

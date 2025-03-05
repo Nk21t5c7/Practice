@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import smallBreedData from "@/assets/smallbreed.json";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
+import Header from "@/components/Header";
+import "@/app/globals.css";
 import path from "path";
 import fs from "fs";
 
@@ -57,36 +59,48 @@ const BreedDetail: React.FC<{ breedData: BreedItem }> = ({ breedData }) => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold">{breedData.breed}</h1>
-      <div className="w-full h-[300px] relative grid grid-cols-1">
-        <Image
-          src={breedData.img}
-          alt={breedData.breed}
-          fill
-          objectFit="contain"
-          className="w-full h-full rounded-2xl"
-        />
+    <div className="py-6 flex">
+      <Header />
+      <div className="p-4 w-full flex flex-col">
+        <h2
+          className="text-3xl relative flex gap-3 items-center content-center font-bold 
+        before:content-[''] before:block before:rounded-[50%] before:w-[2rem] before:h-[2rem] before:border-2 before:border-emerald-400
+         after:content-[''] after:block after:rounded-[50%] after:w-[2rem] after:h-[2rem] after:border-2 after:border-emerald-400"
+        >
+          {breedData.breed}
+        </h2>
+        <div className="w-full  relative">
+          {/* ここh足すとレスポンシブじゃなくなる */}
+          <Image
+            src={breedData.img}
+            alt={breedData.breed}
+            layout="responsive"
+            width={"800"}
+            height={"300"}
+            objectFit="contain"
+            className="w-full h-auto rounded-2xl -z-10"
+          />
+        </div>
+        <p className="text-gray-600">{breedData.origin}</p>
+        <p className="mt-2">{breedData.long_description}</p>
+        <ul className="mt-4 space-y-2">
+          <li>
+            <strong>Size:</strong> {breedData.size}
+          </li>
+          <li>
+            <strong>Weight:</strong> {breedData.weight}
+          </li>
+          <li>
+            <strong>Personality:</strong> {breedData.personality}
+          </li>
+          <li>
+            <strong>Life expectancy:</strong> {breedData.life_expectancy}
+          </li>
+          <li>
+            <strong>Fun Fact:</strong> {breedData.fun_fact}
+          </li>
+        </ul>
       </div>
-      <p className="text-gray-600">{breedData.origin}</p>
-      <p className="mt-2">{breedData.long_description}</p>
-      <ul className="mt-4 space-y-2">
-        <li>
-          <strong>Size:</strong> {breedData.size}
-        </li>
-        <li>
-          <strong>Weight:</strong> {breedData.weight}
-        </li>
-        <li>
-          <strong>Personality:</strong> {breedData.personality}
-        </li>
-        <li>
-          <strong>Life expectancy:</strong> {breedData.life_expectancy}
-        </li>
-        <li>
-          <strong>Fun Fact:</strong> {breedData.fun_fact}
-        </li>
-      </ul>
     </div>
   );
 };
