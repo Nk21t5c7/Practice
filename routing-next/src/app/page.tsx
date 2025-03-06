@@ -1,27 +1,54 @@
 import Header from "@/components/Header";
 import Link from "next/link";
-
-// export async function getStaticProps() {
-
-// }
+import Image from "next/image";
+import "./globals.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   return (
-    <div className="font-[family-name:var(--font-geist-sans)] flex flex-row flex-nowrap items-center">
+    <div className=" font-[family-name:var(--font-geist-sans)] grid lg:flex lg:flex-row lg:flex-nowrap lg:items-center">
       <Header />
       <main className=" basis-full flex flex-col gap-8 row-start-2 items-center sm:items-start w-[65vw] ">
-        <div className="grid grid-cols-2 grid-rows-2 ">
+        <div className="flex flex-wrap flex-col">
           <Link href="/small-breed">
-            <div className="h-[35vh] w-[35vw] border-2 after:content-['Small Breed'] after:bg-[url(public/images/teddy.jpg)]">
-              <img />
-              
-              </div>
+            <div className="relative border-2 w-[50%] after:content-['Small Breed'] after:text-white ">
+              <Image
+                src="/images/teddy.jpg"
+                alt="Small dogs"
+                layout="responsive"
+                width={"150"}
+                height={"100"}
+                objectFit="contain"
+                className="w-full h-auto rounded-2xl -z-10"
+              />
+            </div>
           </Link>
           <Link href="/medium-breed">
-            <div className="h-[35vh] w-[35vw] border-2">Medium Breed</div>
+            <div className="relative border-2 w-[50%] after:content-['Medium Breed'] after:text-white ">
+              <Image
+                src="/images/teddy.jpg"
+                alt="Small dogs"
+                layout="responsive"
+                width={"150"}
+                height={"100"}
+                objectFit="contain"
+                className="w-full h-auto rounded-2xl -z-10"
+              />
+            </div>
           </Link>
           <Link href="/large-breed">
-            <div className="h-[35vh] w-[35vw] border-2">Large Breed</div>
+            <div className="relative border-2 w-[50%] after:content-['Large Breed'] after:text-white ">
+              <Image
+                src="/images/teddy.jpg"
+                alt="Small dogs"
+                layout="responsive"
+                width={"150"}
+                height={"100"}
+                objectFit="contain"
+                className="w-full h-auto rounded-2xl -z-10"
+              />
+            </div>
           </Link>
         </div>
       </main>

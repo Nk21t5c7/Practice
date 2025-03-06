@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
+
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Inter } from "next/font/google";
+config.autoAddCss = false
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
