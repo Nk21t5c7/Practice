@@ -45,10 +45,10 @@ const SmallBreed: React.FC<SmallBreedProps> = ({ aboutData }) => {
       <main className="p-4 align-top">
         <h2 className="text-3xl">Small Breed</h2>
         {/* <ul className="grid grid-cols-[repeat(auto-fill, minmax(200px 1fr))]"> */}
-        <ul className="pt-4 grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ">
+        <ul className="pt-4 grid gap-2 sm:auto-rows-[minmax(100px, auto)] sm:grid-flow-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ">
           {aboutData.map((e: BreedItem, index) => {
             return (
-              <li key={index} className={`h-auto min-w-[200px] ${index%2 === 0 && "col-span-2"}`}>
+              <li key={index} className={`h-auto min-w-[200px] ${index%3 === 0 && "sm:col-span-2"}`}>
                 <Link
                   href={`/small-breed/${encodeURIComponent(e.breed)}`}
                   className="font-bold text-2xl hover:underline"
