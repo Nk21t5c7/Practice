@@ -22,7 +22,7 @@ interface BreedItem {
   breed: string;
   origin: string;
   size: string;
-  img:string;
+  img: string;
   weight: string;
   personality: string;
   life_expectancy: string;
@@ -39,27 +39,31 @@ const SmallBreed: React.FC<MediumBreedProps> = ({ aboutData }) => {
   return (
     <div className=" font-[family-name:var(--font-geist-sans)] grid lg:flex lg:flex-row lg:flex-nowrap lg:items-center">
       <Header />
-      <main className="p-4 align-top">
-        <h2 className="text-3xl">Medium Breed</h2>
+      <main className="p-4 align-top ">
+        <h2 className="text-3xl ">Large Breed</h2>
         {/* <ul className="grid grid-cols-[repeat(auto-fill, minmax(200px 1fr))]"> */}
-        <ul className="pt-4 grid gap-2 sm:auto-cols-[minmax(100px, auto)] sm:grid-flow-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ">
+        <ul className="pt-4 grid gap-4 sm:grid-flow-dense sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {aboutData.map((e: BreedItem, index) => {
             return (
-              <li key={index} className={`h-auto min-w-[200px] ${index%3 === 0 && "sm:col-span-2"}`}>
+              <li key={index} className="h-[300px] max-w-[500px]">
                 <Link
                   href={`/large-breed/${encodeURIComponent(e.breed)}`}
-                  className="font-bold text-2xl hover:underline"
+                  className="font-bold text-[1.2rem] relative hover:underline"
                 >
-                  {e.breed}
+                  <p className="absolute bottom-5 bg-[rgba(0_0_0_.7)] text-white flex left-0 right-0 justify-center backdrop-blur-2xl">{e.breed}</p>
                   <Image
                     src={e.img}
                     alt={e.breed}
-                    layout="responsive"
                     width={"500"}
                     height={"300"}
-                    objectFit="cover"
+                    style={{
+                      width: "500px",
+                      height: "300px",
+                      maxHeight: "350px",
+                      objectFit: "cover",
+                    }}
                     objectPosition="center"
-                    className="w-full h-full rounded-2xl"
+                    className="w-full h-full rounded-2xl object-[50%_25%]"
                   />
                 </Link>
               </li>
