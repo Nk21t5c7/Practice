@@ -12,9 +12,9 @@ export default function About() {
       <div className=" font-[family-name:var(--font-geist-sans)] grid lg:flex lg:flex-row lg:flex-nowrap lg:items-center">
         <Header />
         <main className=" basis-[1024px] flex flex-col gap-8 row-start-2 items-center justify-center sm:items-start p-4 ">
-          <h2>Lorem, ipsum dolor.</h2>
+          <h2 className="text-3xl">About</h2>
           <article>
-            <h3>Lorem ipsum dolor sit amet.</h3>
+            <h3 className="text-2xl ">Lorem ipsum dolor sit amet.</h3>
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Inventore, fuga voluptas vitae illum magnam delectus, doloremque
@@ -38,15 +38,19 @@ export default function About() {
               veritatis aperiam iusto!
             </p>
             <div className="mt-4 grid sm:grid-cols-2 gap-4">
-              <div className="group relative ">
+              <div className="group relative overflow-hidden">
                 <Image
                   src="/images/teddy.jpg"
                   alt="Teddy"
                   width={"150"}
                   height={"300"}
-                  className="w-full h-[300px] rounded-2xl object-[50%_5%]  object-cover"
+                  className="w-full h-[300px] rounded-2xl object-[50%_5%] block object-cover"
                 />
-                <p className="bg-[rgba(0%_0%_70%)] rounded-2xl absolute translate-y-[-100%] -z-10 group-hover:z-10 group-hover:inset-0 group-hover:translate-y-[0%] transition-all duration-[4000]">
+                <p
+                  className="bg-[rgba(0%,0%,70%,.75)] p-4 flex justify-center text-center items-center rounded-2xl absolute translate-y-[-100%]
+                 inset-0 group-hover:translate-y-0 transition-all duration-400 ease-in-out
+                "
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Consequatur a fugit blanditiis nam totam at voluptatem dolor?
                   Tempora ipsam accusamus ipsum officia eligendi fugiat debitis
@@ -56,15 +60,18 @@ export default function About() {
                   cum.
                 </p>
               </div>
-              <div className="group relative ">
+              <div className="group relative transition-all duration-[4000] overflow-hidden">
                 <Image
                   src="/images/large.jpg"
                   alt="Clifford"
                   width={"150"}
                   height={"300"}
-                  className="w-full h-[300px] object-cover object-[50%_30%] rounded-2xl transition-all duration-[4000]"
+                  className="w-full h-[300px] object-cover object-[50%_30%] rounded-2xl "
                 />
-                <p className="bg-[rgba(70%_0%_0%)] rounded-2xl absolute translate-y-[-100%] -z-10 group-hover:z-10 group-hover:inset-0 group-hover:translate-y-[0%] transition-all duration-[4000]">
+                <p
+                  className="bg-[rgba(70%,0%,0%,.75)] p-4 flex justify-center text-center items-center rounded-2xl absolute translate-x-[100%]
+                inset-0 group-hover:translate-x-0 transition-all duration-400 ease-in-out"
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Consequatur a fugit blanditiis nam totam at voluptatem dolor?
                   Tempora ipsam accusamus ipsum officia eligendi fugiat debitis
