@@ -1,0 +1,16 @@
+{
+    "dogs": [
+        {
+            "breed": "Toy poodle",
+            "name": "Teddy",
+            "age": 11,
+            "isNaughty":false
+        },
+        {
+            "breed": "Standard poodle",
+            "name": "Clifford",
+            "age": 4,
+            "isNaughty":true
+        }
+    ]
+}
