@@ -1,33 +1,76 @@
 import express from "express";
-import type { Application, Request, Response } from "express";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware } from "@apollo/server/express4";
 import { typeDefs } from "./schema";
-import path from "path";
-import { resolver } from "./resolver";
-const app: Application = express();
+import { greetingResolver } from "./resolver";
+import cors from 'cors';
 const port: number = 3055;
 
-app.use(express.static("public"));
+const server = new ApolloServer({ typeDefs,  resolvers:greetingResolver });
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers: resolver,
-});
+const app = express();
 
-// server.applyMiddleware({ app });
+const startServer = async () => {
+  await server.start();
 
-app.get("/about", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "../public", "pages", "about.html"));
-});
+  app.use(
+    '/graphql',
+    cors(),
+    express.json(),
+    expressMiddleware(server)
+  );
 
-app.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+  app.listen(port, () => {
+    console.log('server running : http://localhost:3055');
+  });
+};
+
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers
+// });
+// const app = express();
+// // app.use(express.static("public"));
+
+// const startServer = async () => {
+//   await server.start();
+
+//   app.use(
+//     '/graphql', //set graphql endpoint 
+//     cors(), 
+//     express.json(),
+//     expressMiddleware(server), //apply apollo server middleware
+//   );
+
+
+// }
+
+startServer();
+// server.expressMiddleware({ app });
+
+// app.get("/about", (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, "../public", "pages", "about.html"));
+// });
+
+// app.get("/", (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 // app.listen(port, () => console.log(`App working on ${port}`));
-(async () => {
-  await server.start();
-  server.applyMiddleware({ app });
+// (async () => {
+//   await server.start();
+//   server.applyMiddleware({ app });
 
-  app.listen(port, () => console.log(`App working on ${port}`));
-})();
+//   app.listen(port, () => console.log(`App working on ${port}`));
+// })();
+
+// import express from 'express'
+// const app = express();
+
+// app.get('/', (_req, res) => {
+//   res.send('Hello, Express');
+// });
+
+// app.listen(3055, () => {
+//   console.log('Server running on http://localhost:3055');
+// });

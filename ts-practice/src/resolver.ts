@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import path from "path";
 
 const data = JSON.parse(
-  readFileSync(path.join(__dirname, "data.json"), "utf-8")
+  readFileSync(path.join(__dirname, "assets", "json", "dog.json"), "utf-8")
 );
 
 type Dog = {
@@ -13,7 +13,7 @@ type Dog = {
 };
 
 // multiple schema => resolver for each schema
-const greetingResolver = {
+export const greetingResolver = {
   Query: {
     hello: () => "Hello",
   },
@@ -25,7 +25,7 @@ const dogResolver = {
       data.dogs.find((dog: Dog) => dog.breed === breed),
   },
 };
-export const resolver = {
-    ...greetingResolver,
-    ...dogResolver
-}
+// export const resolvers = {
+//     ...greetingResolver,
+//     ...dogResolver
+// }
