@@ -2,26 +2,36 @@ import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { typeDefs } from "./schema";
-import { greetingResolver } from "./resolver";
-import cors from 'cors';
+import { resolver } from "./resolver";
+import cors from "cors";
+import fs from "fs";
+import path from "path";
+
 const port: number = 3055;
 
-const server = new ApolloServer({ typeDefs,  resolvers:greetingResolver });
+const server = new ApolloServer({ typeDefs, resolvers: resolver });
 
 const app = express();
+
+const readJsonFile = (filePath: string) => {
+  const data = fs.readFileSync(filePath, "utf8");
+  return JSON.parse(data);
+};
+
+app.get("/about", (req, res) => {
+  const jsonData = readJsonFile(
+    path.join(__dirname, "assets", "json", "data.json")
+  );
+  res.json(jsonData);
+});
 
 const startServer = async () => {
   await server.start();
 
-  app.use(
-    '/graphql',
-    cors(),
-    express.json(),
-    expressMiddleware(server)
-  );
+  app.use("/graphql", cors(), express.json(), expressMiddleware(server));
 
   app.listen(port, () => {
-    console.log('server running : http://localhost:3055');
+    console.log("server running : http://localhost:3055");
   });
 };
 
@@ -36,12 +46,11 @@ const startServer = async () => {
 //   await server.start();
 
 //   app.use(
-//     '/graphql', //set graphql endpoint 
-//     cors(), 
+//     '/graphql', //set graphql endpoint
+//     cors(),
 //     express.json(),
 //     expressMiddleware(server), //apply apollo server middleware
 //   );
-
 
 // }
 

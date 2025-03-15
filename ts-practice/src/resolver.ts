@@ -25,7 +25,7 @@ const dogResolver = {
       data.dogs.find((dog: Dog) => dog.breed === breed),
   },
 };
-// export const resolvers = {
-//     ...greetingResolver,
-//     ...dogResolver
-// }
+export const resolver = {
+    ...greetingResolver,
+    ...dogResolver
+}
