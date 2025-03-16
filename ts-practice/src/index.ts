@@ -1,15 +1,15 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { typeDefs } from "./schema";
-import { resolver } from "./resolver";
+import { Dog } from "./schema";
+import { resolvers } from "./resolver";
 import cors from "cors";
 import fs from "fs";
 import path from "path";
 
 const port: number = 3055;
 
-const server = new ApolloServer({ typeDefs, resolvers: resolver });
+const server = new ApolloServer({ typeDefs: Dog, resolvers });
 
 const app = express();
 
@@ -18,10 +18,11 @@ const readJsonFile = (filePath: string) => {
   return JSON.parse(data);
 };
 
-app.get("/about", (req, res) => {
+app.get("/about", (req: Request, res: Response) => {
   const jsonData = readJsonFile(
-    path.join(__dirname, "assets", "json", "data.json")
+    path.join(__dirname, "assets", "json", "dog.json")
   );
+  console.log(jsonData);
   res.json(jsonData);
 });
 
@@ -35,27 +36,8 @@ const startServer = async () => {
   });
 };
 
-// const server = new ApolloServer({
-//   typeDefs,
-//   resolvers
-// });
-// const app = express();
-// // app.use(express.static("public"));
-
-// const startServer = async () => {
-//   await server.start();
-
-//   app.use(
-//     '/graphql', //set graphql endpoint
-//     cors(),
-//     express.json(),
-//     expressMiddleware(server), //apply apollo server middleware
-//   );
-
-// }
 
 startServer();
-// server.expressMiddleware({ app });
 
 // app.get("/about", (req: Request, res: Response) => {
 //   res.sendFile(path.join(__dirname, "../public", "pages", "about.html"));

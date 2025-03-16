@@ -1,5 +1,6 @@
 import { readFileSync } from "fs";
 import path from "path";
+import dogData from './assets/json/dog.json';
 
 const data = JSON.parse(
   readFileSync(path.join(__dirname, "assets", "json", "dog.json"), "utf-8")
@@ -12,20 +13,24 @@ type Dog = {
   isNaughty: Boolean;
 };
 
-// multiple schema => resolver for each schema
-export const greetingResolver = {
-  Query: {
-    hello: () => "Hello",
-  },
-};
+type DogByBreed = {
+  breed:String;
+}
 
-const dogResolver = {
+
+export const resolvers = {
   Query: {
-    dog: (_: unknown, { breed }: { breed: string }) =>
-      data.dogs.find((dog: Dog) => dog.breed === breed),
+    dogs: () => {
+      return dogData;
+    },
+
+    dogByBreed: (parent:unknown, args:DogByBreed): Dog | undefined => {
+      const breed = args.breed;
+      Object.entries(dogData).find(([key, dog]) =>{
+        console.log(key)
+      });  
+      return;
+
+    },
   },
-};
-export const resolver = {
-    ...greetingResolver,
-    ...dogResolver
 }
