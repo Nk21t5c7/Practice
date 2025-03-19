@@ -12,18 +12,27 @@ const port: number = 3055;
 const server = new ApolloServer({ typeDefs: Dog, resolvers });
 
 const app = express();
+app.use(express.static(path.join(__dirname, "../public")));
 
 const readJsonFile = (filePath: string) => {
   const data = fs.readFileSync(filePath, "utf8");
   return JSON.parse(data);
 };
 
-app.get("/about", (req: Request, res: Response) => {
+app.get("/api/about", (req: Request, res: Response) => {
   const jsonData = readJsonFile(
     path.join(__dirname, "assets", "json", "dog.json")
   );
   console.log(jsonData);
   res.json(jsonData);
+});
+
+app.get("/about", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../public", "pages", "about.html"));
+});
+
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 const startServer = async () => {
@@ -36,16 +45,7 @@ const startServer = async () => {
   });
 };
 
-
 startServer();
-
-// app.get("/about", (req: Request, res: Response) => {
-//   res.sendFile(path.join(__dirname, "../public", "pages", "about.html"));
-// });
-
-// app.get("/", (req: Request, res: Response) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
 
 // app.listen(port, () => console.log(`App working on ${port}`));
 // (async () => {
