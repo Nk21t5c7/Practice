@@ -10,7 +10,7 @@ type Dog = {
 alert('dog');
 const getData = () => {
   document.getElementById("dogList")!.innerHTML = "";
-  Axios.get("/about")
+  Axios.get("/api/about")
     .then((result) => {
       console.log(result);
       const data = result.data.dogs;
