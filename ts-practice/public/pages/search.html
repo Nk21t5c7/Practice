@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice typescript</title>
 
-    <link rel="stylesheet" href="style.css">
-    
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
 </head>
 
 <body>
@@ -18,7 +18,7 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
-                <li><a href = "/search">Search</a></li>
+                <li><a href="/search">Search</a></li>
             </ul>
         </nav>
     </header>
@@ -26,11 +26,18 @@
     <main>
         <h2>Search</h2>
         <form>
-            <label for = "breed">
-                Breed
-            </label>
-            <input type = 'text' id = 'breed'>
+            <h3>Breed</h3>
+
+            <label for="tp">Toy Poodle</label>
+            <input type='radio' name='breed' id = "tp" value = "toypoodle">
+
+            <label for="sp">Standard Poodle</label>
+            <input type='radio' name='breed' id = "sp" value = "standardPoodle">
         </form>
+
+        <div id="result">
+
+        </div>
 
     </main>
 

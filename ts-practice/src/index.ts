@@ -27,6 +27,10 @@ app.get("/api/about", (req: Request, res: Response) => {
   res.json(jsonData);
 });
 
+app.get("/search", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../public", "pages", "search.html"));
+});
+
 app.get("/about", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../public", "pages", "about.html"));
 });
