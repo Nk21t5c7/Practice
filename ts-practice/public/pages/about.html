@@ -9,7 +9,10 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src='https://kit.fontawesome.com/541f2a7c72.js' crossorigin='anonymous'></script>
-    <script src = '/pages/about.js' defer></script>
+    <!-- ⇩  cant load this file , compiled module commonjs -->
+    <!-- <script id="ts-code" src = '/pages/about.js' type="text/typescript" defer></script> -->
+    <!-- <script src='/pages/about.js'></script> -->
+    <!-- <script src="/pages/about.js" type="module" defer></script> -->
 </head>
 
 <body>
@@ -41,8 +44,11 @@
     <footer>
         <p>Lorem ipsum dolor sit.</p>
     </footer>
+    <script type="module">
+        import { getData } from './about.ts';
 
-  
+      </script>
+
 
 </body>
 

@@ -7,8 +7,8 @@ type Dog = {
   isNaughty: boolean;
 };
 
-alert('dog');
-const getData = () => {
+export const getData = () => {
+  alert("dog");
   document.getElementById("dogList")!.innerHTML = "";
   Axios.get("http://localhost:3055/api/about")
     .then((result) => {
