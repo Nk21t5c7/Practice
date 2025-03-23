@@ -13,6 +13,33 @@
     <!-- <script id="ts-code" src = '/pages/about.js' type="text/typescript" defer></script> -->
     <!-- <script src='/pages/about.js'></script> -->
     <!-- <script src="/pages/about.js" type="module" defer></script> -->
+    <script async type="module">
+        import axios from 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
+
+    async function loadAndRunTS(filePath) {
+        try {
+            const response = await fetch(filePath);
+            if (!response.ok) throw new Error(`Failed to load ${filePath}`);
+            const tsCode = await response.text();
+
+            const jsCode = transpile(tsCode, {
+                target: ScriptTarget.ESNext,
+                module: "ESNext"
+            });
+
+            const { code } = await minify(jsCode, {
+                module: true
+            });
+
+            await import(`data:text/javascript;base64,${new TextEncoder().encode(code).toBase64()}`);
+        } catch (error) {
+            console.error("Error loading TypeScript file:", error);
+        }
+    }
+
+    loadAndRunTS("./pages/about.ts");
+    </script>
+
 </head>
 
 <body>
@@ -45,7 +72,7 @@
         <p>Lorem ipsum dolor sit.</p>
     </footer>
     <script type="module">
-        import { getData } from './about.ts';
+        import { getData } from './pages/about.ts';
 
       </script>
 
