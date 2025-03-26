@@ -1,6 +1,6 @@
 
 export const getData = () => {
-    alert("dog");
+    // alert("dog");
     document.getElementById("dogList").innerHTML = "";
     axios.get("http://localhost:3055/api/about")
       .then((result) => {
