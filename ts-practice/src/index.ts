@@ -12,6 +12,7 @@ const port: number = 3055;
 const server = new ApolloServer({ typeDefs: Dog, resolvers });
 
 const app = express();
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
 const readJsonFile = (filePath: string) => {
@@ -27,6 +28,13 @@ app.get("/api/about", (req: Request, res: Response) => {
   res.json(jsonData);
 });
 
+app.post("/api/search", (req: Request, res: Response) => {
+  console.log(req);
+  const { select } = req.body;
+  console.log(select);
+
+
+});
 app.get("/search", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../public", "pages", "search.html"));
 });
