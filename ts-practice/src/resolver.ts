@@ -17,6 +17,10 @@ type DogByBreed = {
   breed:String;
 }
 
+type DogsByNaughtyArgs = {
+  isNaughty: Boolean;
+}
+
 
 export const resolvers = {
   Query: {
@@ -24,13 +28,16 @@ export const resolvers = {
       return dogData;
     },
 
-    dogByBreed: (parent:unknown, args:DogByBreed): Dog | undefined => {
+    dogByBreed: (_:unknown, args:DogByBreed): Dog | undefined => {
       const breed = args.breed;
       Object.entries(dogData).find(([key, dog]) =>{
         console.log(key)
       });  
       return;
 
+    },
+    dogsByNaughty: (_: unknown, args: DogsByNaughtyArgs): Dog[] => {
+      return dogData.dogs.filter((dog) => dog.isNaughty === args.isNaughty);
     },
   },
 }
