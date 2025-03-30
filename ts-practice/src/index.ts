@@ -29,11 +29,19 @@ app.get("/api/about", (req: Request, res: Response) => {
 });
 
 app.post("/api/search", (req: Request, res: Response) => {
-  console.log(req);
   const { select } = req.body;
-  console.log(select);
-
-
+  // console.log(select);
+  const jsonData = readJsonFile(
+    path.join(__dirname, "assets", "json", "dog.json")
+  ).dogs;
+  console.log(jsonData)
+  if (select === "good") {
+    const data = jsonData.filter((e: any) => e.isNaughty === false);
+    res.status(200).json(data);
+  } else {
+    const data = jsonData.filter((e: any) => e.isNaughty === true);
+    res.status(200).json(data);
+  }
 });
 app.get("/search", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../public", "pages", "search.html"));

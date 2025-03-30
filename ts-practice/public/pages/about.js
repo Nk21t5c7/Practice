@@ -13,7 +13,6 @@ export const getData = () => {
           if (isNaughty) {
             list.innerHTML += '<i class="fa-solid fa-skull"></i>';
           }
-  
           // ! = not null/undefined
           document.getElementById("dogList").append(list);
         });

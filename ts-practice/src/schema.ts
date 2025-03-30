@@ -12,6 +12,7 @@ export const Dog = gql`
   type Query {
     dogs: [Dog] 
     dogByBreed(breed: String!): Dog  
+    dogsByNaughty(isNaughty: Boolean!): [Dog]
   }
 `;
 

@@ -11,6 +11,54 @@
             "name": "Clifford",
             "age": 4,
             "isNaughty":true
+        },
+        {
+            "breed": "Golden Retriever",
+            "name": "Buddy",
+            "age": 6,
+            "isNaughty": false
+        },
+        {
+            "breed": "Labrador Retriever",
+            "name": "Charlie",
+            "age": 3,
+            "isNaughty": true
+        },
+        {
+            "breed": "Shiba Inu",
+            "name": "Haru",
+            "age": 5,
+            "isNaughty": false
+        },
+        {
+            "breed": "Bulldog",
+            "name": "Max",
+            "age": 7,
+            "isNaughty": true
+        },
+        {
+            "breed": "Beagle",
+            "name": "Daisy",
+            "age": 2,
+            "isNaughty": false
+        },
+        {
+            "breed": "Corgi",
+            "name": "Luna",
+            "age": 4,
+            "isNaughty": true
+        },
+        {
+            "breed": "Husky",
+            "name": "Shadow",
+            "age": 6,
+            "isNaughty": true
+        },
+        {
+            "breed": "Chihuahua",
+            "name": "Bella",
+            "age": 9,
+            "isNaughty": false
         }
     ]
 }
