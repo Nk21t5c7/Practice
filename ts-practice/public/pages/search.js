@@ -6,10 +6,16 @@ breedSearch.addEventListener('submit', (e) => {
     console.log(select);
     axios.post("http://localhost:3055/api/search", { select: select })
         .then((result) => {
-            console.log(result);
+            const res = result.data;
+            res.forEach(e => {
+                const list = document.createElement("li");
+                const { breed, name, age } = e;
+                list.innerText = `${name} - ${breed}, ${age}years old`;
+                document.getElementById("result").append(list);
+            })
 
-
-        }).catch((err) => {
+        })
+        .catch((err) => {
             console.log(err);
 
         });
