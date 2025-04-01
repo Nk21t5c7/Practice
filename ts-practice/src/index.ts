@@ -29,17 +29,23 @@ app.get("/api/about", (req: Request, res: Response) => {
 });
 
 app.post("/api/search", (req: Request, res: Response) => {
-  const { select } = req.body;
+  const { select, age } = req.body;
   // console.log(select);
   const jsonData = readJsonFile(
     path.join(__dirname, "assets", "json", "dog.json")
   ).dogs;
-  console.log(jsonData)
+  console.log(select, typeof age);
   if (select === "good") {
-    const data = jsonData.filter((e: any) => e.isNaughty === false);
+    const data = jsonData.filter(
+      (e: any) => e.isNaughty === false && e.age === Number(age)
+    );
+    console.log(data);
     res.status(200).json(data);
   } else {
-    const data = jsonData.filter((e: any) => e.isNaughty === true);
+    const data = jsonData.filter(
+      (e: any) => e.isNaughty === true && e.age === Number(age)
+    );
+    console.log(data);
     res.status(200).json(data);
   }
 });

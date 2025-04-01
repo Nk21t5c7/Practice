@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice typescript</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script  src='/pages/search.js' type="module"></script>
+    <script src='/pages/search.js' type="module"></script>
 
 
 </head>
@@ -27,13 +27,19 @@
     <main>
         <h2>Search</h2>
         <form id="breedSearch">
-            <label for="tp">Good</label>
-            <input type='radio' name='personality' id = "good" value = "good">
+            <div>
+                <label for="tp">Good</label>
+                <input type='radio' name='personality' id="good" value="good">
+                <label for="sp">Naughty</label>
+                <input type='radio' name='personality' id="naughty" value="naughty">
+            </div>
 
-            <label for="sp">Naughty</label>
-            <input type='radio' name='personality' id = "naughty" value = "naughty">
+            <div>
+                <label for="age">Age</label>
+                <input type='number' name='age' id="age" >
+            </div>
 
-            <input type="submit" value ='search'>
+            <input type="submit" value='search'>
         </form>
 
         <div id="result">

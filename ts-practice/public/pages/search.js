@@ -3,8 +3,10 @@ const breedSearch = document.getElementById('breedSearch');
 breedSearch.addEventListener('submit', (e) => {
     e.preventDefault();
     const select = document.querySelector('input[name="personality"]:checked').value;
+    const age = document.querySelector('input[name="age"]').value;
     console.log(select);
-    axios.post("http://localhost:3055/api/search", { select: select })
+    document.getElementById("result").innerHTML = "";
+    axios.post("http://localhost:3055/api/search", { select: select, age: age })
         .then((result) => {
             const res = result.data;
             res.forEach(e => {

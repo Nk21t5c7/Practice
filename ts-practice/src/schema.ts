@@ -13,6 +13,7 @@ export const Dog = gql`
     dogs: [Dog] 
     dogByBreed(breed: String!): Dog  
     dogsByNaughty(isNaughty: Boolean!): [Dog]
+    dogsByAge(age: Int!): [Dog]
   }
 `;
 
