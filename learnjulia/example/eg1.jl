@@ -41,7 +41,7 @@ plot(train_set.Performance_Score)
 p1 = scatter(train_set.Performance_Score, pred, xlabel="Performance Score", ylabel="Predicted Score", legend=:topleft, color=:blue, fmt=:svg)
 plot!(test_set.Performance_Score, pred, color=:red, linestyle=:dash)
 
-p2 = scatter(test_set.Performance_Score, y_pred, xlabel="Performance Score", ylabel="Predicted Score(Tree)", legend=:topleft, color=:blue, fmt=:svg)
+p2 = scatter(test_set.Performance_Score, y_pred, xlabel="Performance Score", ylabel="Predicted Score(Random Forest)", legend=:topleft, color=:blue, fmt=:svg)
 plot!(test_set.Performance_Score, y_pred, color=:red, linestyle=:dash)
 
 plot(p1, p2, layout=(1, 2))
