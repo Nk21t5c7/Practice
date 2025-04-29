@@ -4,6 +4,8 @@ import { useEffect } from "react";
 
 import Login from "./components/Login";
 import Logout from "./components/Logout";
+import Header from "./components/Header";
+import "./globals.css";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -14,9 +16,7 @@ export default function Home() {
 
   return (
     <div className="">
-      <header>
-        <h1>Lorem ipsum</h1>
-      </header>
+      <Header />
       <main>
         {status === "authenticated" ? (
           <div>
