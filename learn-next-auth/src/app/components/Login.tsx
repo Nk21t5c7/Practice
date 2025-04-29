@@ -15,6 +15,12 @@ export default function Login() {
 				<button onClick={() => signIn('google', {}, { prompt: 'login' })} className='border rounded-2xl px-2'>
 					Gmail
 				</button>
+				<button onClick={() => signIn('github', {}, { prompt: 'login' })} className='border rounded-2xl px-2'>
+					Github
+				</button>
+				<button onClick={() => signIn('credentials', {}, { prompt: 'login' })} className='border rounded-2xl px-2'>
+					Email
+				</button>
 			</div>
 		);
 	}
