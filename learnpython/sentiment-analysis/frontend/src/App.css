@@ -1,0 +1,12 @@
+.App{
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+    
+}
+
+form{
+    grid-column: 2/3;
+    display: grid;
+    gap: .5rem;
+
+}
