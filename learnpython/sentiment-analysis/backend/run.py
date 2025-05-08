@@ -1,14 +1,27 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
+from analysis.test1 import TestAnalyzer
 
 app = Flask(__name__)
 
-# CORS(app, origins=["http://localhost:3002"])
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+analyzer = TestAnalyzer('analysis/trained.joblib', 'analysis/vectorizer.joblib')
 
-# @app.route('/api/data/', methods = ['GET'])
-# def get_Data
+
+@app.route('/api/msg', methods = ['POST'])
+def submit_msg():
+    # receive as json
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'No data'}), 400
+    
+    msg = data.get('msg')
+    return jsonify({
+        'msg': msg
+    })
+    
+    
 
 
 @app.route('/')
