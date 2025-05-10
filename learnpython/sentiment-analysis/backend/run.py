@@ -17,9 +17,17 @@ def submit_msg():
         return jsonify({'error': 'No data'}), 400
     
     msg = data.get('msg')
-    print(msg)
+    if not msg: 
+        return jsonify({'error': 'No msg'}), 400
     
-    return jsonify({'result': msg}), 200
+    try:
+        predict = analyzer.predict(msg)
+        print('predict', type(predict[0]))
+        return jsonify({'result': int(predict[0])}), 200
+        
+    except Exception as e: 
+        return jsonify({ 'error': str(e)}), 500
+    
     
     
 

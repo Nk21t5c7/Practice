@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
-export default function FormContainer() {
+export default function FormContainer({setRating}) {
     const [msg, setMsg] = useState("");
 
     useEffect(() => {
@@ -18,7 +18,8 @@ export default function FormContainer() {
         e.preventDefault();
         axios.post('http://127.0.0.1:5000/api/msg', { msg: msg })
             .then((result) => {
-                console.log(result);
+                console.log(result.data);
+                setRating(result.data.result);
 
             }).catch((err) => {
                 console.log(err);
