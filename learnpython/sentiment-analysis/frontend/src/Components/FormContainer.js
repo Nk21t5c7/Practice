@@ -7,7 +7,7 @@ export default function FormContainer() {
     useEffect(() => {
         axios.get('http://127.0.0.1:5000')
             .then((result) => {
-                console.log(result);
+                console.log(result.data);
 
             }).catch((err) => {
                 console.log(err);
@@ -16,7 +16,7 @@ export default function FormContainer() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://127.0.0.1:5000', { msg: msg })
+        axios.post('http://127.0.0.1:5000/api/msg', { msg: msg })
             .then((result) => {
                 console.log(result);
 
@@ -33,8 +33,8 @@ export default function FormContainer() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label>Message</label>
-            <textarea onChange={handleEdit}>
+            <label htmlFor="msg">Message</label>
+            <textarea id = "msg" value = {msg} onChange={handleEdit}>
 
             </textarea>
 

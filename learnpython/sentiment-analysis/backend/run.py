@@ -17,9 +17,9 @@ def submit_msg():
         return jsonify({'error': 'No data'}), 400
     
     msg = data.get('msg')
-    return jsonify({
-        'msg': msg
-    })
+    print(msg)
+    
+    return jsonify({'result': msg}), 200
     
     
 
