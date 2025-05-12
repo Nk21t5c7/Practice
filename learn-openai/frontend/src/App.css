@@ -1,0 +1,45 @@
+#root {
+  width: 100%;
+}
+
+.container{
+  width: 90%;
+  margin: auto;
+}
+
+.formContainer form {
+  display: grid;
+  gap: 2%;
+}
+
+form #textarea {
+  height: 7rem;
+  resize: none;
+}
+
+form .formBtn {
+  grid-column: 1/-1;
+  margin-top: 2%;
+  padding: 1rem 0;
+  border-radius: 15px;
+  border: none;
+}
+
+form .options{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2%;
+}
+
+form .options div {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2%;
+}
+
+.outputText{
+  border: 1px solid black;
+  min-height: 5rem;
+  border-radius: 15px;
+}
