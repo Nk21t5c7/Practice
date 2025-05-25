@@ -1,0 +1,22 @@
+# node_modulesはサーバー側で自動インストールされるので除外
+node_modules
+
+# Gitリポジトリ情報は不要
+.git
+
+# Android/iOSのビルド成果物は不要
+android/build
+ios/build
+
+# ログファイルやキャッシュ
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.expo
+.expo-shared
+
+# OSやエディタの一時ファイル
+.DS_Store
+.idea
+.vscode
